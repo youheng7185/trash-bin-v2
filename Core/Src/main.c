@@ -28,6 +28,9 @@
 #include "servo.h"
 #include "st7920.h"
 #include "vl53l0x.h"
+#include "arm_math.h"
+#include "arm_const_structs.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -84,7 +87,7 @@ static void MX_LPUART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+arm_mfcc_instance_f32 mfcc;
 /* USER CODE END 0 */
 
 /**
