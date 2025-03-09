@@ -33,11 +33,13 @@ void sd_init() {
 }
 
 char latest_audio_filename[32];
+char latest_f32_filename[32];
 char latest_mfcc_filename[32];
 FIL file;
 
 #define AUDIO_FOLDER "AUDIO"
 #define FILE_TEMPLATE "AUDIO%03d.WAV"
+#define F32_TEMPLATE "FLOAT%03d.BIN"
 #define MFCC_TEMPLATE "MFCC%03d.BIN"
 
 int get_next_audio_filename() {
@@ -60,9 +62,9 @@ int get_next_audio_filename() {
   }
 
   snprintf(latest_audio_filename, sizeof(latest_audio_filename), AUDIO_FOLDER "/" FILE_TEMPLATE, max_number + 1);
-  snprintf(latest_mfcc_filename, sizeof(latest_mfcc_filename), AUDIO_FOLDER "/" MFCC_TEMPLATE, max_number + 1);
-  my_printf("new audio file name should be: %s\r\n", latest_audio_filename);
-  my_printf("new mfcc file name should be: %s\r\n", latest_mfcc_filename);
+  snprintf(latest_f32_filename, sizeof(latest_f32_filename), AUDIO_FOLDER "/" F32_TEMPLATE, max_number + 1);
+  my_printf("new audio file name in pcm should be: %s\r\n", latest_audio_filename);
+  my_printf("new audio file name in f32 should be: %s\r\n", latest_f32_filename);
   return max_number + 1;
 }
 
@@ -139,13 +141,13 @@ void write_wav_header(FIL *file, uint32_t data_size) {
     f_sync(file);
 }
 
-FIL file_mfcc;
+FIL file_f32;
 
-void write_mfcc_float_data(const char *filename, float *data, uint32_t size)
+void write_float32_data(const char *filename, float *data, uint32_t size)
 {
 	UINT bytes_written;
-	f_write(&file_mfcc, data, size * sizeof(float), &bytes_written);
-	f_sync(&file_mfcc);
+	f_write(&file_f32, data, size * sizeof(float), &bytes_written);
+	f_sync(&file_f32);
 }
 
 extern I2S_HandleTypeDef hi2s1;
@@ -161,10 +163,10 @@ void start_audio_recording() {
         // Write placeholder WAV header
         write_wav_header(&file, 0);
 
-        if (f_open(&file_mfcc, latest_mfcc_filename, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+        if (f_open(&file_f32, latest_f32_filename, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
         {
-        	my_printf("start write mfcc failed\r\n");
-        	f_close(&file);
+        	my_printf("start write f32 failed\r\n");
+        	f_close(&file_f32);
         	return;
         }
 
@@ -190,7 +192,7 @@ void start_audio_recording() {
 
                 arm_q15_to_float(left_q15_buffer, float_buffer, BUFFER_SIZE / 4);
 
-				write_mfcc_float_data(latest_mfcc_filename, float_buffer, BUFFER_SIZE / 4);
+                write_float32_data(latest_f32_filename, float_buffer, BUFFER_SIZE / 4);
 
                 buffer_ready = 0;
             }
@@ -205,7 +207,7 @@ void start_audio_recording() {
 
         // Close file
         f_close(&file);
-        f_close(&file_mfcc);
+        f_close(&file_f32);
 
         my_printf("Recording complete\r\n");
     } else {
@@ -213,7 +215,7 @@ void start_audio_recording() {
     }
 }
 
-
+/*
 // mfcc starts here
 #define FRAME_SIZE      1024      // 1024 samples per frame (~23ms at 44.1kHz)
 #define FFT_SIZE        2048      // FFT size must be power of 2
@@ -230,4 +232,5 @@ void setup_mfcc() {
 void convert_mfcc() {
 
 }
+*/
 
