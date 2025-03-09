@@ -9,6 +9,8 @@
 #include "my_print.h"
 #include "main.h"
 #include <stdint.h>
+#include "arm_math.h"
+#include "arm_math_types.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -104,6 +106,8 @@ void list_directory(const char *path, uint8_t depth) {
 int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
 volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
+float32_t float_buffer[BUFFER_SIZE / 4];
+int16_t left_q15_buffer[BUFFER_SIZE / 4];
 
 // Callback when half buffer is filled
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
@@ -153,17 +157,26 @@ void start_audio_recording() {
             if (buffer_ready) {
                 int16_t *start_ptr = (buffer_ready == 1) ? i2s_data : &i2s_data[BUFFER_SIZE / 2];
 
+                for (uint32_t i = 0; i < BUFFER_SIZE / 2; i += 2)
+                {
+                	left_q15_buffer[i / 2] = start_ptr[i];
+                }
+
                 // Write only left channel (even indices)
 
+                f_write(&file, left_q15_buffer, (BUFFER_SIZE / 4) * sizeof(int16_t), &bytes_written);
+                /*
                 for (uint32_t i = 0; i < BUFFER_SIZE / 2; i += 2) {
                     f_write(&file, &start_ptr[i], sizeof(int16_t), &bytes_written);
                 }
-
+	*/
                 total_samples += (BUFFER_SIZE / 4); // Since we write only half the samples
+
+                arm_q15_to_float(left_q15_buffer, float_buffer, BUFFER_SIZE / 4);
+
                 buffer_ready = 0;
             }
         }
-
 
         // Stop DMA
         HAL_I2S_DMAStop(&hi2s1);
@@ -179,3 +192,7 @@ void start_audio_recording() {
         my_printf("File open failed\r\n");
     }
 }
+
+
+// mfcc starts here
+
