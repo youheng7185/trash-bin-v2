@@ -33,10 +33,12 @@ void sd_init() {
 }
 
 char latest_audio_filename[32];
+char latest_mfcc_filename[32];
 FIL file;
 
 #define AUDIO_FOLDER "AUDIO"
 #define FILE_TEMPLATE "AUDIO%03d.WAV"
+#define MFCC_TEMPLATE "MFCC%03d.BIN"
 
 int get_next_audio_filename() {
   DIR dir;
@@ -58,7 +60,9 @@ int get_next_audio_filename() {
   }
 
   snprintf(latest_audio_filename, sizeof(latest_audio_filename), AUDIO_FOLDER "/" FILE_TEMPLATE, max_number + 1);
-  my_printf("new file name should be: %s\r\n", latest_audio_filename);
+  snprintf(latest_mfcc_filename, sizeof(latest_mfcc_filename), AUDIO_FOLDER "/" MFCC_TEMPLATE, max_number + 1);
+  my_printf("new audio file name should be: %s\r\n", latest_audio_filename);
+  my_printf("new mfcc file name should be: %s\r\n", latest_mfcc_filename);
   return max_number + 1;
 }
 
@@ -135,6 +139,15 @@ void write_wav_header(FIL *file, uint32_t data_size) {
     f_sync(file);
 }
 
+FIL file_mfcc;
+
+void write_mfcc_float_data(const char *filename, float *data, uint32_t size)
+{
+	UINT bytes_written;
+	f_write(&file_mfcc, data, size * sizeof(float), &bytes_written);
+	f_sync(&file_mfcc);
+}
+
 extern I2S_HandleTypeDef hi2s1;
 
 // Start audio recording (writing only left channel)
@@ -147,6 +160,13 @@ void start_audio_recording() {
 
         // Write placeholder WAV header
         write_wav_header(&file, 0);
+
+        if (f_open(&file_mfcc, latest_mfcc_filename, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+        {
+        	my_printf("start write mfcc failed\r\n");
+        	f_close(&file);
+        	return;
+        }
 
         // Start I2S DMA
         HAL_I2S_Receive_DMA(&hi2s1, (uint16_t *)i2s_data, BUFFER_SIZE);
@@ -165,14 +185,12 @@ void start_audio_recording() {
                 // Write only left channel (even indices)
 
                 f_write(&file, left_q15_buffer, (BUFFER_SIZE / 4) * sizeof(int16_t), &bytes_written);
-                /*
-                for (uint32_t i = 0; i < BUFFER_SIZE / 2; i += 2) {
-                    f_write(&file, &start_ptr[i], sizeof(int16_t), &bytes_written);
-                }
-	*/
+
                 total_samples += (BUFFER_SIZE / 4); // Since we write only half the samples
 
                 arm_q15_to_float(left_q15_buffer, float_buffer, BUFFER_SIZE / 4);
+
+				write_mfcc_float_data(latest_mfcc_filename, float_buffer, BUFFER_SIZE / 4);
 
                 buffer_ready = 0;
             }
@@ -187,6 +205,8 @@ void start_audio_recording() {
 
         // Close file
         f_close(&file);
+        f_close(&file_mfcc);
+
         my_printf("Recording complete\r\n");
     } else {
         my_printf("File open failed\r\n");
@@ -195,4 +215,19 @@ void start_audio_recording() {
 
 
 // mfcc starts here
+#define FRAME_SIZE      1024      // 1024 samples per frame (~23ms at 44.1kHz)
+#define FFT_SIZE        2048      // FFT size must be power of 2
+#define MEL_FILTERS     40        // 40 Mel filter banks
+#define MFCC_COEFFS     20        // Number of MFCC coefficients
+
+arm_mfcc_instance_f32 mfcc_instance;
+float32_t mfcc_output[MFCC_COEFFS];
+
+void setup_mfcc() {
+    arm_mfcc_init_f32(&mfcc_instance, MEL_FILTERS, MFCC_COEFFS, FRAME_SIZE, FFT_SIZE, (float32_t)SAMPLING_RATE);
+}
+
+void convert_mfcc() {
+
+}
 
