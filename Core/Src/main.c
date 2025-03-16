@@ -87,7 +87,7 @@ static void MX_LPUART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-arm_mfcc_instance_f32 mfcc;
+
 /* USER CODE END 0 */
 
 /**
@@ -153,10 +153,12 @@ int main(void)
   servo360_init();
   set_servo_speed(150);
 
+  setup_mfcc();
   list_directory("", 0);
   get_next_audio_filename();
 
   start_audio_recording();
+  //convert_mfcc();
 
   /* USER CODE END 2 */
 

@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "arm_math.h"
 #include "arm_math_types.h"
+#include "arm_common_tables.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -63,8 +64,10 @@ int get_next_audio_filename() {
 
   snprintf(latest_audio_filename, sizeof(latest_audio_filename), AUDIO_FOLDER "/" FILE_TEMPLATE, max_number + 1);
   snprintf(latest_f32_filename, sizeof(latest_f32_filename), AUDIO_FOLDER "/" F32_TEMPLATE, max_number + 1);
+  snprintf(latest_mfcc_filename, sizeof(latest_mfcc_filename), AUDIO_FOLDER "/" MFCC_TEMPLATE, max_number + 1);
   my_printf("new audio file name in pcm should be: %s\r\n", latest_audio_filename);
   my_printf("new audio file name in f32 should be: %s\r\n", latest_f32_filename);
+  my_printf("new mfcc in f32 should be: %s\r\n", latest_mfcc_filename);
   return max_number + 1;
 }
 
@@ -215,22 +218,77 @@ void start_audio_recording() {
     }
 }
 
-/*
-// mfcc starts here
-#define FRAME_SIZE      1024      // 1024 samples per frame (~23ms at 44.1kHz)
-#define FFT_SIZE        2048      // FFT size must be power of 2
-#define MEL_FILTERS     40        // 40 Mel filter banks
-#define MFCC_COEFFS     20        // Number of MFCC coefficients
 
-arm_mfcc_instance_f32 mfcc_instance;
-float32_t mfcc_output[MFCC_COEFFS];
+// mfcc starts here
+#define SAMPLE_RATE     22000       // Your sample rate
+#define FRAME_LEN       512         // Frame size (e.g., 512 samples)
+#define NUM_FFT_POINTS  512         // FFT size (must be power of 2)
+#define NUM_MEL_FILTERS 20          // Number of Mel filters
+#define NUM_MFCC_COEFFS 13          // Number of MFCC coefficients
+
+float32_t dctCoefs[NUM_MFCC_COEFFS * NUM_MEL_FILTERS];  // DCT matrix coefficients
+uint32_t filterPos[NUM_MEL_FILTERS + 1];                // Filter bank positions
+uint32_t filterLengths[NUM_MEL_FILTERS];                // Length of each filter
+float32_t filterCoefs[NUM_MEL_FILTERS * (NUM_FFT_POINTS / 2)]; // Filter bank coefficients
+float32_t windowCoefs[FRAME_LEN];                       // Hamming or Hanning window
+
+arm_mfcc_instance_f32 mfcc;
 
 void setup_mfcc() {
-    arm_mfcc_init_f32(&mfcc_instance, MEL_FILTERS, MFCC_COEFFS, FRAME_SIZE, FFT_SIZE, (float32_t)SAMPLING_RATE);
+	if(arm_mfcc_init_f32(&mfcc, NUM_FFT_POINTS, NUM_MEL_FILTERS, NUM_MFCC_COEFFS, dctCoefs, filterPos, filterLengths, filterCoefs, windowCoefs) == ARM_MATH_SUCCESS)
+	{
+		my_printf("mfcc init success\r\n");
+	} else {
+		my_printf("mfcc init failed\r\n");
+	}
 }
+
+float32_t pcm_data[FRAME_LEN];
+float32_t mfcc_out[NUM_MFCC_COEFFS];
+float32_t mfcc_buffer[FRAME_LEN + 2];
+
+FIL file_pcm;
+FIL file_mfcc;
 
 void convert_mfcc() {
+	UINT bytes_read, bytes_written;
+	uint32_t read_location = 0, write_location = 0;
+	uint32_t file_size;
 
+	if(!(f_open(&file_pcm, latest_f32_filename, FA_READ) == FR_OK))
+	{
+		my_printf("open pcm f32 failed\r\n");
+	}
+
+	if(!(f_open(&file_mfcc, latest_mfcc_filename, FA_CREATE_ALWAYS | FA_WRITE) == FR_OK))
+	{
+		my_printf("open mfcc write failed\r\n");
+	}
+
+	file_size = f_size(&file_pcm);
+
+	while(read_location < file_size)
+	{
+		f_lseek(&file_pcm, read_location);
+		f_read(&file_pcm , pcm_data, FRAME_LEN * sizeof(float32_t), &bytes_read);
+
+		if(bytes_read == 0)
+		{
+			break;
+		}
+
+		arm_mfcc_f32(&mfcc, pcm_data, mfcc_out, mfcc_buffer);
+
+		f_write(&file_mfcc, mfcc_out, NUM_MFCC_COEFFS * sizeof(float32_t), &bytes_written);
+
+		read_location += bytes_read;
+		write_location += bytes_written;
+	}
+
+	f_close(&file_pcm);
+	f_close(&file_mfcc);
+
+	my_printf("mfcc convert done\r\n");
 }
-*/
+
 
