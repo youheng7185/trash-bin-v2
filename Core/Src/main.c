@@ -28,6 +28,7 @@
 #include "servo.h"
 #include "st7920.h"
 #include "vl53l0x.h"
+#define ARM_MATH_CM7
 #include "arm_math.h"
 #include "arm_const_structs.h"
 
@@ -131,6 +132,10 @@ int main(void)
   MX_LPUART1_UART_Init();
   /* USER CODE BEGIN 2 */
   my_printf("test print\r\n");
+  float pi = 3.142;
+  char tx_buffer[40];
+  sprintf(tx_buffer, "test print float: %f\r\n", pi);
+  my_printf(tx_buffer);
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
@@ -158,7 +163,6 @@ int main(void)
   get_next_audio_filename();
 
   start_audio_recording();
-  //convert_mfcc();
 
   /* USER CODE END 2 */
 
