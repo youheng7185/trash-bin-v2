@@ -136,12 +136,18 @@ uint32_t filterLengths[NUM_MEL_FILTERS];                // Length of each filter
 float32_t filterCoefs[NUM_MEL_FILTERS * (NUM_FFT_POINTS / 2)]; // Filter bank coefficients
 float32_t windowCoefs[FRAME_LEN];                       // Hamming or Hanning window
 
+//#define float_t float32_t
+
 arm_mfcc_instance_f32 mfcc;
 
 void setup_mfcc() {
 	for (int i = 0; i < FRAME_LEN; i++) {
 		windowCoefs[i] = 0.54 - 0.46 * cosf(2 * M_PI * i / (FRAME_LEN - 1)); // Hamming window
 	}
+
+	init_mel_filterbank(filterCoefs, filterPos, filterLengths, NUM_MEL_FILTERS, SAMPLE_RATE, NUM_FFT_POINTS, 80, 7600);
+
+	init_dct_matrix(dctCoefs, NUM_MFCC_COEFFS, NUM_MEL_FILTERS);
 
 	if(arm_mfcc_init_f32(&mfcc, NUM_FFT_POINTS, NUM_MEL_FILTERS, NUM_MFCC_COEFFS, dctCoefs, filterPos, filterLengths, filterCoefs, windowCoefs) == ARM_MATH_SUCCESS)
 	{
@@ -238,16 +244,6 @@ void start_audio_recording() {
 
                 write_float32_data(latest_f32_filename, float_buffer, BUFFER_SIZE / 4);
 
-                // source - float_buffer, destination - f32_pcm_data
-                for (int i = 0; i < 21; i++) // fixme later will reach out of bound
-                {
-                	memcpy(f32_pcm_data, &float_buffer[i * FRAME_LEN], 512 * sizeof(float32_t));
-                	arm_mfcc_f32(&mfcc, f32_pcm_data, mfcc_out, mfcc_buffer);
-                	UINT bytes_written;
-                	f_write(&file_mfcc, mfcc_out, NUM_MFCC_COEFFS * sizeof(float32_t), &bytes_written);
-                	f_sync(&file_mfcc);
-                }
-
                 buffer_ready = 0;
             }
         }
@@ -258,6 +254,24 @@ void start_audio_recording() {
         // Update WAV header with actual data size
         f_lseek(&file, 0);
         write_wav_header(&file, total_samples * sizeof(int16_t));
+
+        // source - float_buffer, destination - f32_pcm_data
+        /*
+        for (int i = 0; i < 21; i++) // fixme later will reach out of bound
+        {
+        	memcpy(f32_pcm_data, &float_buffer[i * FRAME_LEN], 512 * sizeof(float32_t));
+        	arm_mfcc_f32(&mfcc, f32_pcm_data, mfcc_out, mfcc_buffer);
+        	UINT bytes_written;
+        	f_write(&file_mfcc, mfcc_out, NUM_MFCC_COEFFS * sizeof(float32_t), &bytes_written);
+        	f_sync(&file_mfcc);
+        }
+        */
+        arm_mfcc_f32(&mfcc, f32_pcm_data, mfcc_out, mfcc_buffer);
+
+        for (int i = 0; i < NUM_MFCC_COEFFS; i++)
+        {
+        	my_printf("mfcc data:%f\r\n", mfcc_out[i]);
+        }
 
         // Close file
         f_close(&file);
@@ -270,7 +284,42 @@ void start_audio_recording() {
     }
 }
 
+void init_mel_filterbank(float32_t *filterCoefs, uint32_t *filterPos, uint32_t *filterLengths,
+                         int numMelFilters, float sampleRate, int fftSize, float freqMin, float freqMax) {
+    float melMin = 1125.0f * logf(1.0f + freqMin / 700.0f);
+    float melMax = 1125.0f * logf(1.0f + freqMax / 700.0f);
+    float melStep = (melMax - melMin) / (numMelFilters + 1);
 
+    float melFrequencies[numMelFilters + 2];
+    float binFrequencies[numMelFilters + 2];
+    int fftBins = fftSize / 2 + 1;
+
+    for (int i = 0; i < numMelFilters + 2; i++) {
+        melFrequencies[i] = melMin + i * melStep;
+        binFrequencies[i] = 700.0f * (expf(melFrequencies[i] / 1125.0f) - 1.0f);
+        filterPos[i] = (uint32_t) (binFrequencies[i] / (sampleRate / fftSize));
+    }
+
+    for (int i = 0; i < numMelFilters; i++) {
+        filterLengths[i] = filterPos[i + 2] - filterPos[i];
+
+        for (int j = filterPos[i]; j < filterPos[i + 1]; j++) {
+            filterCoefs[j] = (float)(j - filterPos[i]) / (filterPos[i + 1] - filterPos[i]);
+        }
+        for (int j = filterPos[i + 1]; j < filterPos[i + 2]; j++) {
+            filterCoefs[j] = 1.0f - ((float)(j - filterPos[i + 1]) / (filterPos[i + 2] - filterPos[i + 1]));
+        }
+    }
+}
+
+void init_dct_matrix(float32_t *dctMatrix, int numDctOutputs, int numMelFilters) {
+    float scale = sqrtf(2.0f / numMelFilters);
+    for (int i = 0; i < numDctOutputs; i++) {
+        for (int j = 0; j < numMelFilters; j++) {
+            dctMatrix[i * numMelFilters + j] = scale * cosf((M_PI / numMelFilters) * i * (j + 0.5f));
+        }
+    }
+}
 
 
 
