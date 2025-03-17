@@ -31,6 +31,7 @@
 #define ARM_MATH_CM7
 #include "arm_math.h"
 #include "arm_const_structs.h"
+#include "mel.h"
 
 /* USER CODE END Includes */
 
@@ -141,6 +142,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
   HAL_Delay(1000);
+  compute_mel();
   sd_init();
   st7920_init();
   st7920_clear();
@@ -154,6 +156,7 @@ int main(void)
 	  my_printf("init vl53l0x failed\r\n");
   }
   my_printf("finish setup\r\n");
+
 
   servo360_init();
   set_servo_speed(150);

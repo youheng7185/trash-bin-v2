@@ -12,6 +12,7 @@
 #include "arm_math.h"
 #include "arm_math_types.h"
 #include "arm_common_tables.h"
+#include "mel.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -128,7 +129,7 @@ int16_t left_q15_buffer[BUFFER_SIZE / 4];
 // mfcc
 float32_t f32_pcm_data[FRAME_LEN];
 float32_t mfcc_out[NUM_MFCC_COEFFS];
-float32_t mfcc_buffer[FRAME_LEN + 2];
+float32_t mfcc_buffer[FRAME_LEN * 2];
 // fixme need to figure out how to fill these array
 float32_t dctCoefs[NUM_MFCC_COEFFS * NUM_MEL_FILTERS];  // DCT matrix coefficients
 uint32_t filterPos[NUM_MEL_FILTERS + 1];                // Filter bank positions
@@ -266,12 +267,14 @@ void start_audio_recording() {
         	f_sync(&file_mfcc);
         }
         */
-        arm_mfcc_f32(&mfcc, f32_pcm_data, mfcc_out, mfcc_buffer);
+        my_printf("recording stopped!\r\n");
 
-        for (int i = 0; i < NUM_MFCC_COEFFS; i++)
+        for (uint32_t i = 0; i < 512; i++)
         {
-        	my_printf("mfcc data:%f\r\n", mfcc_out[i]);
+        	input_signal[i] = float_buffer[i];
         }
+
+        compute_mel();
 
         // Close file
         f_close(&file);
