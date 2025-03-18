@@ -161,7 +161,6 @@ int main(void)
   servo360_init();
   set_servo_speed(150);
 
-  setup_mfcc();
   list_directory("", 0);
   get_next_audio_filename();
 
@@ -357,7 +356,7 @@ static void MX_I2S1_Init(void)
   hi2s1.Init.Standard = I2S_STANDARD_PHILIPS;
   hi2s1.Init.DataFormat = I2S_DATAFORMAT_16B_EXTENDED;
   hi2s1.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
-  hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_22K;
+  hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_48K;
   hi2s1.Init.CPOL = I2S_CPOL_LOW;
   hi2s1.Init.FirstBit = I2S_FIRSTBIT_MSB;
   hi2s1.Init.WSInversion = I2S_WS_INVERSION_DISABLE;
