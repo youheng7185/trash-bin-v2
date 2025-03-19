@@ -28,11 +28,9 @@
 #include "servo.h"
 #include "st7920.h"
 #include "vl53l0x.h"
-#define ARM_MATH_CM7
 #include "arm_math.h"
 #include "arm_const_structs.h"
-#include "mel.h"
-
+#include "mel_q15.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -142,7 +140,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
   HAL_Delay(1000);
-  compute_mel();
+  //compute_mel();
+  mel_q15_init();
   sd_init();
   st7920_init();
   st7920_clear();

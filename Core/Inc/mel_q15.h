@@ -1,0 +1,21 @@
+/*
+ * mel_q15.h
+ *
+ *  Created on: Mar 19, 2025
+ *      Author: lapchong
+ */
+
+#ifndef INC_MEL_Q15_H_
+#define INC_MEL_Q15_H_
+
+#define FFT_SIZE 2048
+#define MEL_FILTERS 40
+#define SAMPLE_RATE 48000
+
+extern q15_t input_signal[FFT_SIZE];
+extern q15_t mel_spectrogram[MEL_FILTERS];
+void mel_q15_init();
+void pcm_to_q15(int16_t *pcm_data, q15_t *q15_output, uint32_t size);
+void compute_mel_spectrogram();
+
+#endif /* INC_MEL_Q15_H_ */

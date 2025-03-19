@@ -12,7 +12,7 @@
 #include "arm_math.h"
 #include "arm_math_types.h"
 #include "arm_common_tables.h"
-#include "mel.h"
+#include "mel_q15.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -211,6 +211,13 @@ void start_audio_recording() {
 
                 total_samples += (BUFFER_SIZE / 4); // Since we write only half the samples
 
+                for (uint8_t i = 0; i < 5; i++)
+                {
+                	pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
+                	compute_mel_spectrogram();
+                }
+
+                /*
                 arm_q15_to_float(left_q15_buffer, float_buffer, BUFFER_SIZE / 4);
 
                 write_float32_data(latest_f32_filename, float_buffer, BUFFER_SIZE / 4);
@@ -237,13 +244,6 @@ void start_audio_recording() {
         write_wav_header(&file, total_samples * sizeof(int16_t));
 
         my_printf("recording stopped!\r\n");
-
-        for (uint32_t i = 0; i < 512; i++)
-        {
-        	input_signal[i] = float_buffer[i];
-        }
-
-        compute_mel();
 
         // Close file
         f_close(&file);
