@@ -14,6 +14,9 @@
 
 extern q15_t input_signal[FFT_SIZE];
 extern q15_t mel_spectrogram[MEL_FILTERS];
+extern q15_t fft_output[FFT_SIZE];
+extern q15_t power_spectrum[FFT_SIZE / 2];
+
 void mel_q15_init();
 void pcm_to_q15(int16_t *pcm_data, q15_t *q15_output, uint32_t size);
 void compute_mel_spectrogram();

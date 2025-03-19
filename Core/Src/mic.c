@@ -112,7 +112,7 @@ void list_directory(const char *path, uint8_t depth) {
 #define SAMPLING_RATE   48000  // 48 kHz
 #define PERIOD          10       // 5-second recording
 #define BUFFER_SIZE     40960 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
-#define GAIN            4
+#define GAIN            5
 
 int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
 volatile uint8_t buffer_ready = 0;
@@ -165,7 +165,7 @@ void write_mel_spec_data(const char *filename, float *data, uint32_t size)
 }
 
 extern I2S_HandleTypeDef hi2s1;
-
+UINT bytes_written_mfcc;
 // Start audio recording (writing only left channel)
 void start_audio_recording() {
     buffer_ready = 0;
@@ -215,23 +215,9 @@ void start_audio_recording() {
                 {
                 	pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
                 	compute_mel_spectrogram();
+                	f_write(&file_mfcc, mel_spectrogram, MEL_FILTERS * sizeof(q15_t), &bytes_written_mfcc);
                 }
 
-                /*
-                arm_q15_to_float(left_q15_buffer, float_buffer, BUFFER_SIZE / 4);
-
-                write_float32_data(latest_f32_filename, float_buffer, BUFFER_SIZE / 4);
-                /*
-                for (uint8_t i = 0; i < 10; i++)
-                {
-                	for (uint32_t j = 0; j < FFT_SIZE; i++)
-                	{
-                		input_signal[j] = float_buffer[i * 512 + j];
-                		compute_mel();
-                		//write_mel_spec_data(latest_mfcc_filename, mel_spectrogram, MEL_FILTERS);
-                	}
-                }
-				*/
                 buffer_ready = 0;
             }
         }
@@ -249,6 +235,19 @@ void start_audio_recording() {
         f_close(&file);
         f_close(&file_f32);
         f_close(&file_mfcc);
+
+        for (int i = 0; i < FFT_SIZE; i++) {
+            my_printf("FFT Output[%d]: %d\n", i, fft_output[i]);
+        }
+
+        for (int i = 0; i < FFT_SIZE / 2; i++) {
+            my_printf("Power Spectrum[%d]: %d\n", i, power_spectrum[i]);
+        }
+
+        for (int i = 0; i < 40; i++)
+        {
+        	my_printf("mel [%d]: %f\r\n", i, mel_spectrogram[i]);
+        }
 
         my_printf("Recording complete\r\n");
     } else {

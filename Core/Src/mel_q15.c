@@ -36,11 +36,17 @@ const q15_t hamming_window[FFT_SIZE] = {2621, 2622, 2625, 2631, 2639, 2649, 2662
 void apply_hamming_window(q15_t *input, q15_t *output, uint32_t size)
 {
 	arm_mult_q15(input, hamming_window, output, size);
+	arm_shift_q15(output, 1, output, size); // Scale up to compensate for precision loss
 }
 
 void compute_fft(q15_t *windowed_signal, q15_t *power_spectrum)
 {
 	arm_rfft_q15(&fft_q15_instance, windowed_signal, fft_output);
+
+	// Scale FFT output to prevent Q15 underflow
+	arm_shift_q15(fft_output, 3, fft_output, FFT_SIZE); // Left shift by 3 bits
+	// gain
+
 	arm_cmplx_mag_squared_q15(fft_output, power_spectrum, FFT_SIZE / 2);
 }
 
@@ -61,7 +67,6 @@ void apply_mel_filters(q15_t *power_spectrum, q15_t *mel_spectrogram) {
 void apply_log_scale(q15_t *mel_spectrogram) {
     arm_vlog_q15(mel_spectrogram, mel_spectrogram, MEL_FILTERS);
 }
-
 
 void compute_mel_spectrogram() {
     apply_hamming_window(input_signal, fft_output, FFT_SIZE);
