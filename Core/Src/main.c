@@ -31,6 +31,7 @@
 #include "arm_math.h"
 #include "arm_const_structs.h"
 #include "mel_q15.h"
+#include "mel_filter_bank.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -142,6 +143,14 @@ int main(void)
   HAL_Delay(1000);
   //compute_mel();
   mel_q15_init();
+
+  for (int m = 0; m < MEL_FILTERS; m++) {
+      for (int k = 0; k < 10; k++) {  // Print first 10 bins per filter
+          my_printf("melFilterBank[%d][%d]: %d\n", m, k, melFilterBank[m][k]);
+      }
+  }
+
+
   sd_init();
   st7920_init();
   st7920_clear();

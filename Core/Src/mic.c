@@ -213,7 +213,8 @@ void start_audio_recording() {
 
                 for (uint8_t i = 0; i < 5; i++)
                 {
-                	pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
+                	//pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
+                	memcpy(input_signal, &left_q15_buffer[i * FFT_SIZE], FFT_SIZE* sizeof(q15_t));
                 	compute_mel_spectrogram();
                 	f_write(&file_mfcc, mel_spectrogram, MEL_FILTERS * sizeof(q15_t), &bytes_written_mfcc);
                 }

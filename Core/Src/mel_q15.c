@@ -48,8 +48,12 @@ void compute_fft(q15_t *windowed_signal, q15_t *power_spectrum)
 	// gain
 
 	arm_cmplx_mag_squared_q15(fft_output, power_spectrum, FFT_SIZE / 2);
-}
 
+	// Apply Gain on Power Spectrum
+	arm_shift_q15(power_spectrum, 8, power_spectrum, FFT_SIZE / 2);  // Increase magnitude (shift left)
+
+}
+/*
 void apply_mel_filters(q15_t *power_spectrum, q15_t *mel_spectrogram) {
     q31_t acc; // 32-bit accumulator to prevent overflow
 
@@ -59,8 +63,20 @@ void apply_mel_filters(q15_t *power_spectrum, q15_t *mel_spectrogram) {
             acc += (q31_t) power_spectrum[k] * mel_filter_bank[m][k]; // Multiply and accumulate
         }
 
+        acc <<= 3; // gain
+
         // Scale down to fit in Q15
         mel_spectrogram[m] = (q15_t) __SSAT(acc >> 15, 16); // Shift and saturate to Q15 range
+    }
+}
+*/
+void apply_mel_filters(q15_t *power_spectrum, q15_t *mel_spectrogram) {
+    for (int m = 0; m < MEL_FILTERS; m++) {
+        mel_spectrogram[m] = 0;
+        for (int k = 0; k < FFT_SIZE / 2; k++) {
+            mel_spectrogram[m] += power_spectrum[k] * mel_filter_bank[m][k];
+        }
+        //mel_spectrogram[m] = logf(mel_spectrogram[m] + 1e-10); // Log scale
     }
 }
 
@@ -72,7 +88,7 @@ void compute_mel_spectrogram() {
     apply_hamming_window(input_signal, fft_output, FFT_SIZE);
     compute_fft(fft_output, power_spectrum);
     apply_mel_filters(power_spectrum, mel_spectrogram);
-    apply_log_scale(mel_spectrogram); // Optional log scale
+    //apply_log_scale(mel_spectrogram); // Optional log scale
 }
 
 void pcm_to_q15(int16_t *pcm_data, q15_t *q15_output, uint32_t size) {
