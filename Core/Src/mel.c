@@ -15,11 +15,7 @@
 #include "arm_math.h"
 #include "arm_math_types.h"
 #include "arm_common_tables.h"
-
-#define FRAME_LEN       512      // Frame size
-#define FFT_SIZE        512      // FFT size (Power of 2)
-#define MEL_FILTERS     20       // Number of Mel filters
-#define SAMPLE_RATE     22000.0f // Audio sample rate
+#include "mel.h"
 
 arm_rfft_fast_instance_f32 fft_instance;
 
@@ -98,11 +94,13 @@ void apply_mel_filters(float32_t *power_spectrum, float32_t *mel_spectrogram) {
 
 void compute_mel()
 {
+	/*
     for (int i = 0; i < 512; i++) {
         my_printf("Mel input %d: %f\n", i, input_signal[i]);
     }
+    my_printf("started compute fft\r\n");
+	*/
 
-	my_printf("started compute fft\r\n");
 
 	apply_hamming_window(input_signal, fft_output, FFT_SIZE);
 
@@ -112,9 +110,11 @@ void compute_mel()
 
 	apply_mel_filters(power_spectrum, mel_spectrogram);
 
-	my_printf("mel spectrum: \r\n");
 
+	/*
     for (int i = 0; i < MEL_FILTERS; i++) {
         my_printf("Mel bin %d: %f\n", i, mel_spectrogram[i]);
     }
+    my_printf("mel spectrum: \r\n");
+    */
 }
