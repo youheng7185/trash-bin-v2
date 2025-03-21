@@ -1,6 +1,6 @@
 //
 // Created by lapchong on 3/3/25.
-//	hi
+//
 #include "stm32h7xx_hal.h"
 #include "mic.h"
 #include "fatfs.h"
