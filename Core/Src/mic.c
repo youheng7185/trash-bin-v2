@@ -117,8 +117,8 @@ void list_directory(const char *path, uint8_t depth) {
 int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
 volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
-float32_t float_buffer[BUFFER_SIZE / 4];
-int16_t left_q15_buffer[BUFFER_SIZE / 4];
+int16_t left_pcm_buffer[BUFFER_SIZE / 4];
+q15_t q15_buffer[BUFFER_SIZE / 4];
 
 // Callback when half buffer is filled
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
@@ -203,22 +203,16 @@ void start_audio_recording() {
 
                 for (uint32_t i = 0; i < BUFFER_SIZE / 2; i += 2)
                 {
-                	left_q15_buffer[i / 2] = start_ptr[i] * GAIN;
+                	left_pcm_buffer[i / 2] = start_ptr[i] * GAIN;
                 }
 
                 // Write only left channel (even indices)
 
-                f_write(&file, left_q15_buffer, (BUFFER_SIZE / 4) * sizeof(int16_t), &bytes_written);
+                f_write(&file, left_pcm_buffer, (BUFFER_SIZE / 4) * sizeof(int16_t), &bytes_written);
 
                 total_samples += (BUFFER_SIZE / 4); // Since we write only half the samples
 
-                for (uint8_t i = 0; i < 5; i++)
-                {
-                	//pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
-                	memcpy(input_signal, &left_q15_buffer[i * FFT_SIZE], FFT_SIZE* sizeof(q15_t));
-//                	compute_mel_spectrogram();
-//                	f_write(&file_mfcc, mel_spectrogram, MEL_FILTERS * sizeof(q15_t), &bytes_written_mfcc);
-                }
+                arm_copy_q15((q15_t*)left_pcm_buffer, q15_buffer, BUFFER_SIZE / 4);
 
                 buffer_ready = 0;
             }

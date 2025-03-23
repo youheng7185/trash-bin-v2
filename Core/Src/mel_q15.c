@@ -91,7 +91,3 @@ void compute_mel_spectrogram() {
     //apply_log_scale(mel_spectrogram); // Optional log scale
 }
 
-void pcm_to_q15(int16_t *pcm_data, q15_t *q15_output, uint32_t size) {
-    arm_shift_q15((q15_t *)pcm_data, -1, q15_output, size);  // Optimized for DSP
-}
-
