@@ -12,6 +12,7 @@
 #include "arm_math.h"
 #include "arm_math_types.h"
 #include "arm_common_tables.h"
+#include "mfcc_q15.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -165,9 +166,10 @@ void write_mel_spec_data(const char *filename, float *data, uint32_t size)
 }
 
 extern I2S_HandleTypeDef hi2s1;
-UINT bytes_written_mfcc;
+
 // Start audio recording (writing only left channel)
 void start_audio_recording() {
+	UINT bytes_written_mfcc;
     buffer_ready = 0;
     my_printf("Starting audio recording...\r\n");
 
@@ -213,9 +215,10 @@ void start_audio_recording() {
 
                 arm_copy_q15((q15_t*)left_pcm_buffer, q15_buffer, BUFFER_SIZE / 4);
 
-                for (uint8_t i = 0; i < 32; i++)
+                for (uint8_t i = 0; i < 4; i++)
                 {
                 	convert_mfcc(&left_pcm_buffer[i * 512]);
+                	f_write(&file_mfcc, mfcc_output, 26 * sizeof(q15_t), &bytes_written_mfcc);
                 }
 
                 buffer_ready = 0;
@@ -234,7 +237,7 @@ void start_audio_recording() {
         // Close file
         f_close(&file);
 //        f_close(&file_f32);
-//        f_close(&file_mfcc);
+        f_close(&file_mfcc);
 
 //        for (int i = 0; i < FFT_SIZE; i++) {
 //            my_printf("FFT Output[%d]: %d\n", i, fft_output[i]);
