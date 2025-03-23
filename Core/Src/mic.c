@@ -12,7 +12,6 @@
 #include "arm_math.h"
 #include "arm_math_types.h"
 #include "arm_common_tables.h"
-#include "mel_q15.h"
 
 FATFS fatfs;
 FRESULT fresult;
@@ -213,6 +212,11 @@ void start_audio_recording() {
                 total_samples += (BUFFER_SIZE / 4); // Since we write only half the samples
 
                 arm_copy_q15((q15_t*)left_pcm_buffer, q15_buffer, BUFFER_SIZE / 4);
+
+                for (uint8_t i = 0; i < 32; i++)
+                {
+                	convert_mfcc(&left_pcm_buffer[i * 512]);
+                }
 
                 buffer_ready = 0;
             }

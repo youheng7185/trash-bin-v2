@@ -30,8 +30,6 @@
 #include "vl53l0x.h"
 #include "arm_math.h"
 #include "arm_const_structs.h"
-#include "mel_q15.h"
-#include "mel_filter_bank.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -141,7 +139,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
   HAL_Delay(1000);
-  mel_q15_init();
+  mfcc_q15_init();
 
   //compute_mel();
   /*
