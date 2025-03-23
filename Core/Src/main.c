@@ -141,14 +141,17 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
   HAL_Delay(1000);
-  //compute_mel();
   mel_q15_init();
+
+  //compute_mel();
+  /*
 
   for (int m = 0; m < MEL_FILTERS; m++) {
       for (int k = 0; k < 10; k++) {  // Print first 10 bins per filter
           my_printf("melFilterBank[%d][%d]: %d\n", m, k, melFilterBank[m][k]);
       }
   }
+  */
 
 
   sd_init();
@@ -156,7 +159,7 @@ int main(void)
   st7920_clear();
   st7920_print(1, 1, "why cubeide works but not cmake or make!!!");
   st7920_sendBuffer();
-
+/*
   if(vl53l0x_init())
   {
 	  my_printf("init vl53l0x success\r\n");
@@ -168,7 +171,7 @@ int main(void)
 
   servo360_init();
   set_servo_speed(150);
-
+*/
   list_directory("", 0);
   get_next_audio_filename();
 
@@ -364,7 +367,7 @@ static void MX_I2S1_Init(void)
   hi2s1.Init.Standard = I2S_STANDARD_PHILIPS;
   hi2s1.Init.DataFormat = I2S_DATAFORMAT_16B_EXTENDED;
   hi2s1.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
-  hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_48K;
+  hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_16K;
   hi2s1.Init.CPOL = I2S_CPOL_LOW;
   hi2s1.Init.FirstBit = I2S_FIRSTBIT_MSB;
   hi2s1.Init.WSInversion = I2S_WS_INVERSION_DISABLE;

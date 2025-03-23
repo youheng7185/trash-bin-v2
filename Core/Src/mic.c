@@ -52,7 +52,7 @@ int get_next_audio_filename() {
   if (f_opendir(&dir, AUDIO_FOLDER) == FR_OK) {
     while (f_readdir(&dir, &fno) == FR_OK && fno.fname[0]) {
       if (strstr(fno.fname, "AUDIO") && strstr(fno.fname, ".WAV")) {
-        int num = atoi(fno.fname + 6);
+        int num = atoi(fno.fname + 5);
         if (num > max_number) {
           max_number = num;
         }
@@ -109,9 +109,9 @@ void list_directory(const char *path, uint8_t depth) {
     }
 }
 
-#define SAMPLING_RATE   48000  // 48 kHz
+#define SAMPLING_RATE   16000  // 48 kHz
 #define PERIOD          10       // 5-second recording
-#define BUFFER_SIZE     40960 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
+#define BUFFER_SIZE     16384 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
 #define GAIN            5
 
 int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
@@ -130,16 +130,17 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s) {
     buffer_ready = 2;
 }
 
-// Write WAV header for mono channel 48khz
+// Write WAV header for mono channel, 16-bit, 16kHz sampling rate
 void write_wav_header(FIL *file, uint32_t data_size) {
     uint8_t wav_header[44] = {
         'R', 'I', 'F', 'F',
         (data_size + 36) & 0xFF, ((data_size + 36) >> 8) & 0xFF, ((data_size + 36) >> 16) & 0xFF, ((data_size + 36) >> 24) & 0xFF,
         'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',
-        16, 0, 0, 0, 1, 0, 1, 0,
-        0x80, 0xBB, 0x00, 0x00,  // 48000 Hz sample rate
-        0x00, 0xEE, 0x02, 0x00,  // Byte rate = 48000 * 1 * 16/8
-        2, 0, 16, 0, 'd', 'a', 't', 'a',
+        16, 0, 0, 0, 1, 0, 1, 0,  // PCM format, 1 channel (mono)
+        0x00, 0x3E, 0x00, 0x00,  // 16000 Hz sample rate (0x3E80 = 16000)
+        0x00, 0x7D, 0x00, 0x00,  // Byte rate = 16000 * 1 * 16/8 = 32000 (0x7D00)
+        2, 0, 16, 0,  // Block align = 2 bytes, Bits per sample = 16
+        'd', 'a', 't', 'a',
         data_size & 0xFF, (data_size >> 8) & 0xFF, (data_size >> 16) & 0xFF, (data_size >> 24) & 0xFF
     };
     UINT bytes_written;
@@ -215,8 +216,8 @@ void start_audio_recording() {
                 {
                 	//pcm_to_q15(&left_q15_buffer[i * FFT_SIZE], input_signal, FFT_SIZE);
                 	memcpy(input_signal, &left_q15_buffer[i * FFT_SIZE], FFT_SIZE* sizeof(q15_t));
-                	compute_mel_spectrogram();
-                	f_write(&file_mfcc, mel_spectrogram, MEL_FILTERS * sizeof(q15_t), &bytes_written_mfcc);
+//                	compute_mel_spectrogram();
+//                	f_write(&file_mfcc, mel_spectrogram, MEL_FILTERS * sizeof(q15_t), &bytes_written_mfcc);
                 }
 
                 buffer_ready = 0;
@@ -234,21 +235,21 @@ void start_audio_recording() {
 
         // Close file
         f_close(&file);
-        f_close(&file_f32);
-        f_close(&file_mfcc);
+//        f_close(&file_f32);
+//        f_close(&file_mfcc);
 
-        for (int i = 0; i < FFT_SIZE; i++) {
-            my_printf("FFT Output[%d]: %d\n", i, fft_output[i]);
-        }
-
-        for (int i = 0; i < FFT_SIZE / 2; i++) {
-            my_printf("Power Spectrum[%d]: %d\n", i, power_spectrum[i]);
-        }
-
-        for (int i = 0; i < 40; i++)
-        {
-        	my_printf("mel [%d]: %f\r\n", i, mel_spectrogram[i]);
-        }
+//        for (int i = 0; i < FFT_SIZE; i++) {
+//            my_printf("FFT Output[%d]: %d\n", i, fft_output[i]);
+//        }
+//
+//        for (int i = 0; i < FFT_SIZE / 2; i++) {
+//            my_printf("Power Spectrum[%d]: %d\n", i, power_spectrum[i]);
+//        }
+//
+//        for (int i = 0; i < 40; i++)
+//        {
+//        	my_printf("mel [%d]: %f\r\n", i, mel_spectrogram[i]);
+//        }
 
         my_printf("Recording complete\r\n");
     } else {
