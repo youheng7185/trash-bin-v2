@@ -1,0 +1,10 @@
+../Core/Inc/my_print.h:44:20:my_printf	1
+../Core/Src/mic.c:21:6:sd_init	3
+../Core/Src/mic.c:47:5:get_next_audio_filename	7
+../Core/Src/mic.c:75:6:list_directory	7
+../Core/Src/mic.c:124:6:HAL_I2S_RxHalfCpltCallback	1
+../Core/Src/mic.c:129:6:HAL_I2S_RxCpltCallback	1
+../Core/Src/mic.c:134:6:write_wav_header	1
+../Core/Src/mic.c:154:6:write_float32_data	1
+../Core/Src/mic.c:161:6:write_mel_spec_data	1
+../Core/Src/mic.c:171:6:start_audio_recording	9

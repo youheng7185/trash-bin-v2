@@ -1,0 +1,9 @@
+../Core/Src/st7920.c:17:6:st7920_writeCmd	24	static
+../Core/Src/st7920.c:30:6:st7920_writeData	24	static
+../Core/Src/st7920.c:43:6:st7920_gfx	8	static
+../Core/Src/st7920.c:53:6:st7920_init	8	static
+../Core/Src/st7920.c:79:6:st7920_drawPixel	24	static
+../Core/Src/st7920.c:91:6:st7920_sendBuffer	16	static
+../Core/Src/st7920.c:116:6:st7920_drawChar	24	static
+../Core/Src/st7920.c:135:6:st7920_print	16	static
+../Core/Src/st7920.c:149:6:st7920_clear	8	static

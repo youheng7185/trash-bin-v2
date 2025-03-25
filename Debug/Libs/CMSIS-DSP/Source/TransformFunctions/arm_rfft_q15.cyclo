@@ -1,0 +1,3 @@
+../Libs/CMSIS-DSP/Source/TransformFunctions/arm_rfft_q15.c:161:24:arm_rfft_q15	2
+../Libs/CMSIS-DSP/Source/TransformFunctions/arm_rfft_q15.c:280:24:arm_split_rfft_q15	2
+../Libs/CMSIS-DSP/Source/TransformFunctions/arm_rfft_q15.c:499:24:arm_split_rifft_q15	2
