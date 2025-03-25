@@ -99,12 +99,7 @@ void tud_umount_cb(void) {
   //Do nothing for now
 }
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-    if (GPIO_Pin == GPIO_PIN_3) {
-    	my_printf("hello from exti\r\n");
-    }
-}
+recording_status_t recording_status = NOT_READY;
 /* USER CODE END 0 */
 
 /**
@@ -169,6 +164,7 @@ int main(void)
   st7920_clear();
   st7920_print(1, 1, "sd card mount success");
   st7920_sendBuffer();
+  recording_status = READY;
 
   if(vl53l0x_init())
   {
@@ -185,6 +181,7 @@ int main(void)
   set_servo_speed(150);
 
   list_directory("", 0);
+  /*
   get_next_audio_filename();
 
   st7920_print(1, 17, "record start");
@@ -192,8 +189,10 @@ int main(void)
   start_audio_recording();
   st7920_print(1, 25, "record done");
   st7920_sendBuffer();
+  */
   tud_init(BOARD_TUD_RHPORT);
-
+  st7920_print(1, 17, "setup done\r\n");
+  st7920_sendBuffer();
   /* USER CODE END 2 */
 
   /* Infinite loop */

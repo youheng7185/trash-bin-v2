@@ -35,13 +35,11 @@ void sd_init() {
 }
 
 char latest_audio_filename[32];
-char latest_f32_filename[32];
 char latest_mfcc_filename[32];
 FIL file;
 
 #define AUDIO_FOLDER "AUDIO"
 #define FILE_TEMPLATE "AUDIO%03d.WAV"
-#define F32_TEMPLATE "FLOAT%03d.BIN"
 #define MFCC_TEMPLATE "MFCC%03d.BIN"
 
 int get_next_audio_filename() {
@@ -64,10 +62,8 @@ int get_next_audio_filename() {
   }
 
   snprintf(latest_audio_filename, sizeof(latest_audio_filename), AUDIO_FOLDER "/" FILE_TEMPLATE, max_number + 1);
-  snprintf(latest_f32_filename, sizeof(latest_f32_filename), AUDIO_FOLDER "/" F32_TEMPLATE, max_number + 1);
   snprintf(latest_mfcc_filename, sizeof(latest_mfcc_filename), AUDIO_FOLDER "/" MFCC_TEMPLATE, max_number + 1);
   my_printf("new audio file name in pcm should be: %s\r\n", latest_audio_filename);
-  my_printf("new audio file name in f32 should be: %s\r\n", latest_f32_filename);
   my_printf("new mfcc in f32 should be: %s\r\n", latest_mfcc_filename);
   return max_number + 1;
 }
@@ -148,15 +144,7 @@ void write_wav_header(FIL *file, uint32_t data_size) {
     f_sync(file);
 }
 
-FIL file_f32;
 FIL file_mfcc;
-
-void write_float32_data(const char *filename, float *data, uint32_t size)
-{
-	UINT bytes_written;
-	f_write(&file_f32, data, size * sizeof(float), &bytes_written);
-	f_sync(&file_f32);
-}
 
 void write_mel_spec_data(const char *filename, float *data, uint32_t size)
 {
@@ -183,13 +171,6 @@ void start_audio_recording() {
         {
         	my_printf("start write mfcc failed, filename: %s, error: %d\r\n", latest_mfcc_filename, fresult);
         	f_close(&file_mfcc);
-        	return;
-        }
-
-        if (f_open(&file_f32, latest_f32_filename, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-        {
-        	my_printf("start write f32 failed\r\n");
-        	f_close(&file_f32);
         	return;
         }
 
@@ -236,24 +217,23 @@ void start_audio_recording() {
 
         // Close file
         f_close(&file);
-//        f_close(&file_f32);
         f_close(&file_mfcc);
-
-//        for (int i = 0; i < FFT_SIZE; i++) {
-//            my_printf("FFT Output[%d]: %d\n", i, fft_output[i]);
-//        }
-//
-//        for (int i = 0; i < FFT_SIZE / 2; i++) {
-//            my_printf("Power Spectrum[%d]: %d\n", i, power_spectrum[i]);
-//        }
-//
-//        for (int i = 0; i < 40; i++)
-//        {
-//        	my_printf("mel [%d]: %f\r\n", i, mel_spectrogram[i]);
-//        }
-
         my_printf("Recording complete\r\n");
     } else {
         my_printf("File open failed\r\n");
     }
+}
+
+bool record_and_convert()
+{
+	if (recording_status == READY)
+	{
+		recording_status = RECORDING;
+		get_next_audio_filename();
+		start_audio_recording();
+		recording_status = READY;
+		return true;
+	} else {
+		return false;
+	}
 }
