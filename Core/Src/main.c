@@ -99,6 +99,12 @@ void tud_umount_cb(void) {
   //Do nothing for now
 }
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == GPIO_PIN_3) {
+    	my_printf("hello from exti\r\n");
+    }
+}
 /* USER CODE END 0 */
 
 /**
@@ -154,39 +160,38 @@ int main(void)
   HAL_Delay(1000);
 
   mfcc_q15_init();
-  //compute_mel();
-  /*
 
-  for (int m = 0; m < MEL_FILTERS; m++) {
-      for (int k = 0; k < 10; k++) {  // Print first 10 bins per filter
-          my_printf("melFilterBank[%d][%d]: %d\n", m, k, melFilterBank[m][k]);
-      }
-  }
-  */
-
-
-  sd_init();
   st7920_init();
   st7920_clear();
-  st7920_print(1, 1, "why cubeide works but not cmake or make!!!");
+  st7920_print(1, 1, "sd card mount failed");
   st7920_sendBuffer();
-/*
+  sd_init();
+  st7920_clear();
+  st7920_print(1, 1, "sd card mount success");
+  st7920_sendBuffer();
+
   if(vl53l0x_init())
   {
 	  my_printf("init vl53l0x success\r\n");
+	  st7920_print(1, 9, "vl53l0x init success");
   } else {
 	  my_printf("init vl53l0x failed\r\n");
+	  st7920_print(1, 9, "vl53l0x init failed");
   }
   my_printf("finish setup\r\n");
-
+  st7920_sendBuffer();
 
   servo360_init();
   set_servo_speed(150);
-*/
+
   list_directory("", 0);
   get_next_audio_filename();
 
-  //start_audio_recording();
+  st7920_print(1, 17, "record start");
+  st7920_sendBuffer();
+  start_audio_recording();
+  st7920_print(1, 25, "record done");
+  st7920_sendBuffer();
   tud_init(BOARD_TUD_RHPORT);
 
   /* USER CODE END 2 */
@@ -716,6 +721,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : ir_sensor_Pin */
+  GPIO_InitStruct.Pin = ir_sensor_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(ir_sensor_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : xshut4_Pin xshut3_Pin xshut2_Pin xshut1_Pin
                            led_Pin */
   GPIO_InitStruct.Pin = xshut4_Pin|xshut3_Pin|xshut2_Pin|xshut1_Pin
@@ -724,6 +735,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(ir_sensor_EXTI_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(ir_sensor_EXTI_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

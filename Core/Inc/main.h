@@ -63,6 +63,9 @@ void Error_Handler(void);
 #define lcd_cs_GPIO_Port GPIOE
 #define lcd_rst_Pin GPIO_PIN_4
 #define lcd_rst_GPIO_Port GPIOE
+#define ir_sensor_Pin GPIO_PIN_3
+#define ir_sensor_GPIO_Port GPIOA
+#define ir_sensor_EXTI_IRQn EXTI3_IRQn
 #define xshut4_Pin GPIO_PIN_2
 #define xshut4_GPIO_Port GPIOG
 #define xshut3_Pin GPIO_PIN_3
