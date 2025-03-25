@@ -1,0 +1,1 @@
+../Libs/CMSIS-DSP/Source/StatisticsFunctions/arm_absmax_q15.c:104:24:arm_absmax_q15	120	static,ignoring_inline_asm

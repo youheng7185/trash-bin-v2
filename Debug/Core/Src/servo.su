@@ -1,0 +1,3 @@
+../Core/Src/servo.c:11:6:servo360_init	16	static
+../Core/Src/servo.c:19:6:set_servo_angle	24	static
+../Core/Src/servo.c:29:6:set_servo_speed	16	static

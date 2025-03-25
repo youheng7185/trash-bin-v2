@@ -1,0 +1,10 @@
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_stm32.h:158:20:dwc2_phy_init	16	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_stm32.h:233:20:dwc2_phy_update	24	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:46:13:reset_core	16	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:63:13:phy_fs_init	24	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:89:13:phy_hs_init	24	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:146:13:check_dwc2	24	static,ignoring_inline_asm
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:172:6:dwc2_core_is_highspeed	16	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:197:6:dwc2_core_init	40	static,ignoring_inline_asm
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:261:6:dfifo_read_packet	64	static
+../Libs/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c:286:6:dfifo_write_packet	48	static
