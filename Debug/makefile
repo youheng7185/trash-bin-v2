@@ -114,6 +114,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 rubbish-bin-v3.list \
 
+OBJCOPY_BIN += \
+rubbish-bin-v3.bin \
+
 
 # All Target
 all: main-build
@@ -137,12 +140,17 @@ rubbish-bin-v3.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+rubbish-bin-v3.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "rubbish-bin-v3.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout rubbish-bin-v3.elf rubbish-bin-v3.list rubbish-bin-v3.map
+	-$(RM) default.size.stdout rubbish-bin-v3.bin rubbish-bin-v3.elf rubbish-bin-v3.list rubbish-bin-v3.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
