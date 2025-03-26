@@ -33,15 +33,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_macro  00010dc2  00000000  00000000  00085133  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line   0004608b  00000000  00000000  00095ef5  2**0
+ 15 .debug_line   00049677  00000000  00000000  00095ef5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_str    0017f098  00000000  00000000  000dbf80  2**0
+ 16 .debug_str    0017f095  00000000  00000000  000df56c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .comment      00000043  00000000  00000000  0025b018  2**0
+ 17 .comment      00000043  00000000  00000000  0025e601  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  0000c908  00000000  00000000  0025b05c  2**2
+ 18 .debug_frame  0000c908  00000000  00000000  0025e644  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line_str 0000006a  00000000  00000000  00267964  2**0
+ 19 .debug_line_str 00000067  00000000  00000000  0026af4c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -150,8 +150,8 @@ Disassembly of section .text:
  80003c6:	bf08      	it	eq
  80003c8:	2800      	cmpeq	r0, #0
  80003ca:	bf1c      	itt	ne
- 80003cc:	f04f 31ff 	movne.w	r1, #4294967295	@ 0xffffffff
- 80003d0:	f04f 30ff 	movne.w	r0, #4294967295	@ 0xffffffff
+ 80003cc:	f04f 31ff 	movne.w	r1, #4294967295
+ 80003d0:	f04f 30ff 	movne.w	r0, #4294967295
  80003d4:	f000 b988 	b.w	80006e8 <__aeabi_idiv0>
  80003d8:	f1ad 0c08 	sub.w	ip, sp, #8
  80003dc:	e96d ce04 	strd	ip, lr, [sp, #-16]!
@@ -190,7 +190,7 @@ Disassembly of section .text:
  800043a:	429a      	cmp	r2, r3
  800043c:	d909      	bls.n	8000452 <__udivmoddi4+0x62>
  800043e:	18fb      	adds	r3, r7, r3
- 8000440:	f101 30ff 	add.w	r0, r1, #4294967295	@ 0xffffffff
+ 8000440:	f101 30ff 	add.w	r0, r1, #4294967295
  8000444:	f080 80ea 	bcs.w	800061c <__udivmoddi4+0x22c>
  8000448:	429a      	cmp	r2, r3
  800044a:	f240 80e7 	bls.w	800061c <__udivmoddi4+0x22c>
@@ -205,7 +205,7 @@ Disassembly of section .text:
  8000466:	459c      	cmp	ip, r3
  8000468:	d909      	bls.n	800047e <__udivmoddi4+0x8e>
  800046a:	18fb      	adds	r3, r7, r3
- 800046c:	f100 32ff 	add.w	r2, r0, #4294967295	@ 0xffffffff
+ 800046c:	f100 32ff 	add.w	r2, r0, #4294967295
  8000470:	f080 80d6 	bcs.w	8000620 <__udivmoddi4+0x230>
  8000474:	459c      	cmp	ip, r3
  8000476:	f240 80d3 	bls.w	8000620 <__udivmoddi4+0x230>
@@ -259,7 +259,7 @@ Disassembly of section .text:
  80004fa:	429a      	cmp	r2, r3
  80004fc:	d907      	bls.n	800050e <__udivmoddi4+0x11e>
  80004fe:	18fb      	adds	r3, r7, r3
- 8000500:	f10c 38ff 	add.w	r8, ip, #4294967295	@ 0xffffffff
+ 8000500:	f10c 38ff 	add.w	r8, ip, #4294967295
  8000504:	d202      	bcs.n	800050c <__udivmoddi4+0x11c>
  8000506:	429a      	cmp	r2, r3
  8000508:	f200 80e0 	bhi.w	80006cc <__udivmoddi4+0x2dc>
@@ -272,7 +272,7 @@ Disassembly of section .text:
  8000520:	429c      	cmp	r4, r3
  8000522:	d907      	bls.n	8000534 <__udivmoddi4+0x144>
  8000524:	18fb      	adds	r3, r7, r3
- 8000526:	f102 30ff 	add.w	r0, r2, #4294967295	@ 0xffffffff
+ 8000526:	f102 30ff 	add.w	r0, r2, #4294967295
  800052a:	d202      	bcs.n	8000532 <__udivmoddi4+0x142>
  800052c:	429c      	cmp	r4, r3
  800052e:	f200 80ca 	bhi.w	80006c6 <__udivmoddi4+0x2d6>
@@ -300,7 +300,7 @@ Disassembly of section .text:
  8000576:	fa02 f201 	lsl.w	r2, r2, r1
  800057a:	d909      	bls.n	8000590 <__udivmoddi4+0x1a0>
  800057c:	193c      	adds	r4, r7, r4
- 800057e:	f100 3aff 	add.w	sl, r0, #4294967295	@ 0xffffffff
+ 800057e:	f100 3aff 	add.w	sl, r0, #4294967295
  8000582:	f080 809c 	bcs.w	80006be <__udivmoddi4+0x2ce>
  8000586:	45a6      	cmp	lr, r4
  8000588:	f240 8099 	bls.w	80006be <__udivmoddi4+0x2ce>
@@ -315,7 +315,7 @@ Disassembly of section .text:
  80005a8:	45a4      	cmp	ip, r4
  80005aa:	d908      	bls.n	80005be <__udivmoddi4+0x1ce>
  80005ac:	193c      	adds	r4, r7, r4
- 80005ae:	f103 3eff 	add.w	lr, r3, #4294967295	@ 0xffffffff
+ 80005ae:	f103 3eff 	add.w	lr, r3, #4294967295
  80005b2:	f080 8082 	bcs.w	80006ba <__udivmoddi4+0x2ca>
  80005b6:	45a4      	cmp	ip, r4
  80005b8:	d97f      	bls.n	80006ba <__udivmoddi4+0x2ca>
@@ -377,7 +377,7 @@ Disassembly of section .text:
  8000656:	b280      	uxth	r0, r0
  8000658:	d93e      	bls.n	80006d8 <__udivmoddi4+0x2e8>
  800065a:	1879      	adds	r1, r7, r1
- 800065c:	f108 3cff 	add.w	ip, r8, #4294967295	@ 0xffffffff
+ 800065c:	f108 3cff 	add.w	ip, r8, #4294967295
  8000660:	d201      	bcs.n	8000666 <__udivmoddi4+0x276>
  8000662:	4589      	cmp	r9, r1
  8000664:	d81f      	bhi.n	80006a6 <__udivmoddi4+0x2b6>
@@ -390,7 +390,7 @@ Disassembly of section .text:
  800067c:	4542      	cmp	r2, r8
  800067e:	d229      	bcs.n	80006d4 <__udivmoddi4+0x2e4>
  8000680:	18ba      	adds	r2, r7, r2
- 8000682:	f109 31ff 	add.w	r1, r9, #4294967295	@ 0xffffffff
+ 8000682:	f109 31ff 	add.w	r1, r9, #4294967295
  8000686:	d2c4      	bcs.n	8000612 <__udivmoddi4+0x222>
  8000688:	4542      	cmp	r2, r8
  800068a:	d2c2      	bcs.n	8000612 <__udivmoddi4+0x222>
@@ -469,7 +469,7 @@ static inline void my_printf(const char *format, ...)
  8000726:	4603      	mov	r3, r0
  8000728:	b29a      	uxth	r2, r3
  800072a:	f107 0108 	add.w	r1, r7, #8
- 800072e:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800072e:	f04f 33ff 	mov.w	r3, #4294967295
  8000732:	4805      	ldr	r0, [pc, #20]	@ (8000748 <my_printf+0x5c>)
  8000734:	f00d fff0 	bl	800e718 <HAL_UART_Transmit>
 }
@@ -2108,7 +2108,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  80010ce:	4603      	mov	r3, r0
  80010d0:	b29a      	uxth	r2, r3
  80010d2:	f107 0108 	add.w	r1, r7, #8
- 80010d6:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80010d6:	f04f 33ff 	mov.w	r3, #4294967295
  80010da:	4805      	ldr	r0, [pc, #20]	@ (80010f0 <my_printf+0x5c>)
  80010dc:	f00d fb1c 	bl	800e718 <HAL_UART_Transmit>
 }
@@ -2252,7 +2252,7 @@ void convert_mfcc(q15_t * pcm_input)
  80011da:	4603      	mov	r3, r0
  80011dc:	b29a      	uxth	r2, r3
  80011de:	f107 0108 	add.w	r1, r7, #8
- 80011e2:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80011e2:	f04f 33ff 	mov.w	r3, #4294967295
  80011e6:	4805      	ldr	r0, [pc, #20]	@ (80011fc <my_printf+0x5c>)
  80011e8:	f00d fa96 	bl	800e718 <HAL_UART_Transmit>
 }
@@ -2433,7 +2433,7 @@ int get_next_audio_filename() {
  8001316:	3301      	adds	r3, #1
  8001318:	e001      	b.n	800131e <get_next_audio_filename+0xb6>
     return -1;
- 800131a:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800131a:	f04f 33ff 	mov.w	r3, #4294967295
 }
  800131e:	4618      	mov	r0, r3
  8001320:	3750      	adds	r7, #80	@ 0x50
@@ -3017,7 +3017,7 @@ void st7920_writeCmd(uint8_t cmd)
 
 	HAL_SPI_Transmit(&hspi4, txBuffer, 3, HAL_MAX_DELAY);
  8001706:	f107 010c 	add.w	r1, r7, #12
- 800170a:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800170a:	f04f 33ff 	mov.w	r3, #4294967295
  800170e:	2203      	movs	r2, #3
  8001710:	4806      	ldr	r0, [pc, #24]	@ (800172c <st7920_writeCmd+0x50>)
  8001712:	f00b fc17 	bl	800cf44 <HAL_SPI_Transmit>
@@ -3066,7 +3066,7 @@ void st7920_writeData(uint8_t data)
 
 	HAL_SPI_Transmit(&hspi4, txBuffer, 3, HAL_MAX_DELAY);
  800175a:	f107 010c 	add.w	r1, r7, #12
- 800175e:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800175e:	f04f 33ff 	mov.w	r3, #4294967295
  8001762:	2203      	movs	r2, #3
  8001764:	4806      	ldr	r0, [pc, #24]	@ (8001780 <st7920_writeData+0x50>)
  8001766:	f00b fbed 	bl	800cf44 <HAL_SPI_Transmit>
@@ -4987,7 +4987,7 @@ int _close(int file)
  8002342:	6078      	str	r0, [r7, #4]
   (void)file;
   return -1;
- 8002344:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8002344:	f04f 33ff 	mov.w	r3, #4294967295
 }
  8002348:	4618      	mov	r0, r3
  800234a:	370c      	adds	r7, #12
@@ -5112,7 +5112,7 @@ void *_sbrk(ptrdiff_t incr)
  80023da:	220c      	movs	r2, #12
  80023dc:	601a      	str	r2, [r3, #0]
     return (void *)-1;
- 80023de:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80023de:	f04f 33ff 	mov.w	r3, #4294967295
  80023e2:	e009      	b.n	80023f8 <_sbrk+0x54>
   }
 
@@ -5428,7 +5428,7 @@ void ExitRun0Mode(void)
  800259a:	4603      	mov	r3, r0
  800259c:	b29a      	uxth	r2, r3
  800259e:	f107 0108 	add.w	r1, r7, #8
- 80025a2:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80025a2:	f04f 33ff 	mov.w	r3, #4294967295
  80025a6:	4805      	ldr	r0, [pc, #20]	@ (80025bc <my_printf+0x5c>)
  80025a8:	f00c f8b6 	bl	800e718 <HAL_UART_Transmit>
 }
@@ -5479,7 +5479,7 @@ bool i2c_read_addr8_data8(uint8_t addr, uint8_t *data) {
  80025f0:	005b      	lsls	r3, r3, #1
  80025f2:	b299      	uxth	r1, r3
  80025f4:	1dfa      	adds	r2, r7, #7
- 80025f6:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80025f6:	f04f 33ff 	mov.w	r3, #4294967295
  80025fa:	9300      	str	r3, [sp, #0]
  80025fc:	2301      	movs	r3, #1
  80025fe:	4815      	ldr	r0, [pc, #84]	@ (8002654 <i2c_read_addr8_data8+0x74>)
@@ -5501,7 +5501,7 @@ bool i2c_read_addr8_data8(uint8_t addr, uint8_t *data) {
  800261a:	781b      	ldrb	r3, [r3, #0]
  800261c:	005b      	lsls	r3, r3, #1
  800261e:	b299      	uxth	r1, r3
- 8002620:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8002620:	f04f 33ff 	mov.w	r3, #4294967295
  8002624:	9300      	str	r3, [sp, #0]
  8002626:	2301      	movs	r3, #1
  8002628:	683a      	ldr	r2, [r7, #0]
@@ -5558,7 +5558,7 @@ bool i2c_write_addr8_data8(uint8_t addr, uint8_t data) {
  800267c:	005b      	lsls	r3, r3, #1
  800267e:	b299      	uxth	r1, r3
  8002680:	f107 020c 	add.w	r2, r7, #12
- 8002684:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8002684:	f04f 33ff 	mov.w	r3, #4294967295
  8002688:	9300      	str	r3, [sp, #0]
  800268a:	2302      	movs	r3, #2
  800268c:	480a      	ldr	r0, [pc, #40]	@ (80026b8 <i2c_write_addr8_data8+0x58>)
@@ -5603,7 +5603,7 @@ bool i2c_read_addr8_data32(uint8_t addr, uint32_t *data) {
  80026d0:	005b      	lsls	r3, r3, #1
  80026d2:	b299      	uxth	r1, r3
  80026d4:	1dfa      	adds	r2, r7, #7
- 80026d6:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 80026d6:	f04f 33ff 	mov.w	r3, #4294967295
  80026da:	9300      	str	r3, [sp, #0]
  80026dc:	2301      	movs	r3, #1
  80026de:	481c      	ldr	r0, [pc, #112]	@ (8002750 <i2c_read_addr8_data32+0x90>)
@@ -5627,7 +5627,7 @@ bool i2c_read_addr8_data32(uint8_t addr, uint32_t *data) {
  80026fc:	005b      	lsls	r3, r3, #1
  80026fe:	b299      	uxth	r1, r3
  8002700:	f107 020c 	add.w	r2, r7, #12
- 8002704:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8002704:	f04f 33ff 	mov.w	r3, #4294967295
  8002708:	9300      	str	r3, [sp, #0]
  800270a:	2304      	movs	r3, #4
  800270c:	4810      	ldr	r0, [pc, #64]	@ (8002750 <i2c_read_addr8_data32+0x90>)
@@ -5736,7 +5736,7 @@ bool i2c_write_addr8_bytes(uint8_t addr, const uint8_t *data, uint8_t length) {
  80027de:	b29b      	uxth	r3, r3
  80027e0:	3301      	adds	r3, #1
  80027e2:	b29b      	uxth	r3, r3
- 80027e4:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 80027e4:	f04f 32ff 	mov.w	r2, #4294967295
  80027e8:	9200      	str	r2, [sp, #0]
  80027ea:	68ba      	ldr	r2, [r7, #8]
  80027ec:	480a      	ldr	r0, [pc, #40]	@ (8002818 <i2c_write_addr8_bytes+0xbc>)
@@ -5782,7 +5782,7 @@ bool i2c_read_addr8_bytes(uint8_t addr, uint8_t *data, uint8_t length) {
  8002834:	005b      	lsls	r3, r3, #1
  8002836:	b299      	uxth	r1, r3
  8002838:	1dfa      	adds	r2, r7, #7
- 800283a:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800283a:	f04f 33ff 	mov.w	r3, #4294967295
  800283e:	9300      	str	r3, [sp, #0]
  8002840:	2301      	movs	r3, #1
  8002842:	4815      	ldr	r0, [pc, #84]	@ (8002898 <i2c_read_addr8_bytes+0x78>)
@@ -5806,7 +5806,7 @@ bool i2c_read_addr8_bytes(uint8_t addr, uint8_t *data, uint8_t length) {
  8002862:	b299      	uxth	r1, r3
  8002864:	79bb      	ldrb	r3, [r7, #6]
  8002866:	b29b      	uxth	r3, r3
- 8002868:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 8002868:	f04f 32ff 	mov.w	r2, #4294967295
  800286c:	9200      	str	r2, [sp, #0]
  800286e:	683a      	ldr	r2, [r7, #0]
  8002870:	4809      	ldr	r0, [pc, #36]	@ (8002898 <i2c_read_addr8_bytes+0x78>)
@@ -8825,7 +8825,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
  8003ccc:	2200      	movs	r2, #0
  8003cce:	6879      	ldr	r1, [r7, #4]
- 8003cd0:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 8003cd0:	f04f 30ff 	mov.w	r0, #4294967295
  8003cd4:	f000 f92f 	bl	8003f36 <HAL_NVIC_SetPriority>
     uwTickPrio = TickPriority;
  8003cd8:	4a06      	ldr	r2, [pc, #24]	@ (8003cf4 <HAL_InitTick+0x68>)
@@ -8918,7 +8918,7 @@ __weak void HAL_Delay(uint32_t Delay)
   /* Add a freq to guarantee minimum wait */
   if (wait < HAL_MAX_DELAY)
  8003d4a:	68fb      	ldr	r3, [r7, #12]
- 8003d4c:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 8003d4c:	f1b3 3fff 	cmp.w	r3, #4294967295
  8003d50:	d005      	beq.n	8003d5e <HAL_Delay+0x26>
   {
     wait += (uint32_t)(uwTickFreq);
@@ -9154,7 +9154,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
 
   return (
            ((PreemptPriority & (uint32_t)((1UL << (PreemptPriorityBits)) - 1UL)) << SubPriorityBits) |
- 8003ea8:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 8003ea8:	f04f 32ff 	mov.w	r2, #4294967295
  8003eac:	69bb      	ldr	r3, [r7, #24]
  8003eae:	fa02 f303 	lsl.w	r3, r2, r3
  8003eb2:	43da      	mvns	r2, r3
@@ -9163,7 +9163,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
  8003eb8:	697b      	ldr	r3, [r7, #20]
  8003eba:	409a      	lsls	r2, r3
            ((SubPriority     & (uint32_t)((1UL << (SubPriorityBits    )) - 1UL)))
- 8003ebc:	f04f 31ff 	mov.w	r1, #4294967295	@ 0xffffffff
+ 8003ebc:	f04f 31ff 	mov.w	r1, #4294967295
  8003ec0:	697b      	ldr	r3, [r7, #20]
  8003ec2:	fa01 f303 	lsl.w	r3, r1, r3
  8003ec6:	43d9      	mvns	r1, r3
@@ -9209,7 +9209,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
  8003ef8:	6053      	str	r3, [r2, #4]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
  8003efa:	210f      	movs	r1, #15
- 8003efc:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 8003efc:	f04f 30ff 	mov.w	r0, #4294967295
  8003f00:	f7ff ff8e 	bl	8003e20 <__NVIC_SetPriority>
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
  8003f04:	4b05      	ldr	r3, [pc, #20]	@ (8003f1c <SysTick_Config+0x40>)
@@ -16599,7 +16599,7 @@ static HAL_StatusTypeDef I2C_WaitOnFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uin
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  80070fe:	683b      	ldr	r3, [r7, #0]
- 8007100:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 8007100:	f1b3 3fff 	cmp.w	r3, #4294967295
  8007104:	d02d      	beq.n	8007162 <I2C_WaitOnFlagUntilTimeout+0x8a>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -16716,7 +16716,7 @@ static HAL_StatusTypeDef I2C_WaitOnTXISFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  80071ac:	68bb      	ldr	r3, [r7, #8]
- 80071ae:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 80071ae:	f1b3 3fff 	cmp.w	r3, #4294967295
  80071b2:	d025      	beq.n	8007200 <I2C_WaitOnTXISFlagUntilTimeout+0x76>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -17128,7 +17128,7 @@ static HAL_StatusTypeDef I2C_IsErrorOccurred(I2C_HandleTypeDef *hi2c, uint32_t T
       /* Check for the Timeout */
       if (Timeout != HAL_MAX_DELAY)
  80073ee:	68bb      	ldr	r3, [r7, #8]
- 80073f0:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 80073f0:	f1b3 3fff 	cmp.w	r3, #4294967295
  80073f4:	d045      	beq.n	8007482 <I2C_IsErrorOccurred+0xca>
       {
         if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
@@ -27710,7 +27710,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
  800b654:	4602      	mov	r2, r0
  800b656:	69fb      	ldr	r3, [r7, #28]
  800b658:	1ad3      	subs	r3, r2, r3
- 800b65a:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800b65a:	f1b3 3fff 	cmp.w	r3, #4294967295
  800b65e:	d109      	bne.n	800b674 <HAL_SD_Init+0xdc>
     {
       hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
@@ -28074,7 +28074,7 @@ HAL_StatusTypeDef HAL_SD_ReadBlocks(SD_HandleTypeDef *hsd, uint8_t *pData, uint3
 
     /* Configure the SD DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
- 800b85a:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800b85a:	f04f 33ff 	mov.w	r3, #4294967295
  800b85e:	617b      	str	r3, [r7, #20]
     config.DataLength    = NumberOfBlocks * BLOCKSIZE;
  800b860:	683b      	ldr	r3, [r7, #0]
@@ -28609,7 +28609,7 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks(SD_HandleTypeDef *hsd, const uint8_t *pData
 
     /* Configure the SD DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
- 800bb6e:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800bb6e:	f04f 33ff 	mov.w	r3, #4294967295
  800bb72:	61bb      	str	r3, [r7, #24]
     config.DataLength    = NumberOfBlocks * BLOCKSIZE;
  800bb74:	683b      	ldr	r3, [r7, #0]
@@ -30856,7 +30856,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
 
   /* Configure the SD DPSM (Data Path State Machine) */
   config.DataTimeOut   = SDMMC_DATATIMEOUT;
- 800c8b8:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800c8b8:	f04f 33ff 	mov.w	r3, #4294967295
  800c8bc:	60bb      	str	r3, [r7, #8]
   config.DataLength    = 64U;
  800c8be:	2340      	movs	r3, #64	@ 0x40
@@ -30946,7 +30946,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
  800c93a:	4602      	mov	r2, r0
  800c93c:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
  800c93e:	1ad3      	subs	r3, r2, r3
- 800c940:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800c940:	f1b3 3fff 	cmp.w	r3, #4294967295
  800c944:	d102      	bne.n	800c94c <SD_SendSDStatus+0x10c>
     {
       return HAL_SD_ERROR_TIMEOUT;
@@ -31020,7 +31020,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
  800c9aa:	4602      	mov	r2, r0
  800c9ac:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
  800c9ae:	1ad3      	subs	r3, r2, r3
- 800c9b0:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800c9b0:	f1b3 3fff 	cmp.w	r3, #4294967295
  800c9b4:	d102      	bne.n	800c9bc <SD_SendSDStatus+0x17c>
     {
       return HAL_SD_ERROR_TIMEOUT;
@@ -31409,7 +31409,7 @@ static uint32_t SD_FindSCR(SD_HandleTypeDef *hsd, uint32_t *pSCR)
   }
 
   config.DataTimeOut   = SDMMC_DATATIMEOUT;
- 800cbb2:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 800cbb2:	f04f 33ff 	mov.w	r3, #4294967295
  800cbb6:	613b      	str	r3, [r7, #16]
   config.DataLength    = 8U;
  800cbb8:	2308      	movs	r3, #8
@@ -31490,7 +31490,7 @@ static uint32_t SD_FindSCR(SD_HandleTypeDef *hsd, uint32_t *pSCR)
  800cc2c:	4602      	mov	r2, r0
  800cc2e:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
  800cc30:	1ad3      	subs	r3, r2, r3
- 800cc32:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800cc32:	f1b3 3fff 	cmp.w	r3, #4294967295
  800cc36:	d102      	bne.n	800cc3e <SD_FindSCR+0xe2>
     {
       return HAL_SD_ERROR_TIMEOUT;
@@ -32256,7 +32256,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
  800d09c:	429a      	cmp	r2, r3
  800d09e:	d803      	bhi.n	800d0a8 <HAL_SPI_Transmit+0x164>
  800d0a0:	683b      	ldr	r3, [r7, #0]
- 800d0a2:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800d0a2:	f1b3 3fff 	cmp.w	r3, #4294967295
  800d0a6:	d102      	bne.n	800d0ae <HAL_SPI_Transmit+0x16a>
  800d0a8:	683b      	ldr	r3, [r7, #0]
  800d0aa:	2b00      	cmp	r3, #0
@@ -32393,7 +32393,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
  800d172:	429a      	cmp	r2, r3
  800d174:	d803      	bhi.n	800d17e <HAL_SPI_Transmit+0x23a>
  800d176:	683b      	ldr	r3, [r7, #0]
- 800d178:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800d178:	f1b3 3fff 	cmp.w	r3, #4294967295
  800d17c:	d102      	bne.n	800d184 <HAL_SPI_Transmit+0x240>
  800d17e:	683b      	ldr	r3, [r7, #0]
  800d180:	2b00      	cmp	r3, #0
@@ -32555,7 +32555,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
  800d280:	429a      	cmp	r2, r3
  800d282:	d803      	bhi.n	800d28c <HAL_SPI_Transmit+0x348>
  800d284:	683b      	ldr	r3, [r7, #0]
- 800d286:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800d286:	f1b3 3fff 	cmp.w	r3, #4294967295
  800d28a:	d102      	bne.n	800d292 <HAL_SPI_Transmit+0x34e>
  800d28c:	683b      	ldr	r3, [r7, #0]
  800d28e:	2b00      	cmp	r3, #0
@@ -32875,7 +32875,7 @@ static HAL_StatusTypeDef SPI_WaitOnFlagUntilTimeout(const SPI_HandleTypeDef *hsp
  800d47e:	429a      	cmp	r2, r3
  800d480:	d803      	bhi.n	800d48a <SPI_WaitOnFlagUntilTimeout+0x2a>
  800d482:	683b      	ldr	r3, [r7, #0]
- 800d484:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800d484:	f1b3 3fff 	cmp.w	r3, #4294967295
  800d488:	d102      	bne.n	800d490 <SPI_WaitOnFlagUntilTimeout+0x30>
  800d48a:	683b      	ldr	r3, [r7, #0]
  800d48c:	2b00      	cmp	r3, #0
@@ -38090,7 +38090,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  800f7b6:	69bb      	ldr	r3, [r7, #24]
- 800f7b8:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 800f7b8:	f1b3 3fff 	cmp.w	r3, #4294967295
  800f7bc:	d04b      	beq.n	800f856 <UART_WaitOnFlagUntilTimeout+0xb2>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -42448,7 +42448,7 @@ DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
  8010eee:	75fb      	strb	r3, [r7, #23]
 
   if(BSP_SD_ReadBlocks((uint32_t*)buff,
- 8010ef0:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8010ef0:	f04f 33ff 	mov.w	r3, #4294967295
  8010ef4:	683a      	ldr	r2, [r7, #0]
  8010ef6:	6879      	ldr	r1, [r7, #4]
  8010ef8:	68b8      	ldr	r0, [r7, #8]
@@ -42501,7 +42501,7 @@ DRESULT SD_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
  8010f30:	75fb      	strb	r3, [r7, #23]
 
   if(BSP_SD_WriteBlocks((uint32_t*)buff,
- 8010f32:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8010f32:	f04f 33ff 	mov.w	r3, #4294967295
  8010f36:	683a      	ldr	r2, [r7, #0]
  8010f38:	6879      	ldr	r1, [r7, #4]
  8010f3a:	68b8      	ldr	r0, [r7, #8]
@@ -44239,7 +44239,7 @@ ARM_DSP_ATTRIBUTE arm_status arm_sqrt_q31(
     else
     {
        return (ARM_MATH_ARGUMENT_ERROR);
- 8011b16:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8011b16:	f04f 33ff 	mov.w	r3, #4294967295
     }
   }
 }
@@ -58070,7 +58070,7 @@ TU_ATTR_ALWAYS_INLINE static inline uint16_t tu_min16 (uint16_t x, uint16_t y) {
  8018b34:	429a      	cmp	r2, r3
  8018b36:	d202      	bcs.n	8018b3e <data_stage_xact+0x66>
     return -1;
- 8018b38:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 8018b38:	f04f 33ff 	mov.w	r3, #4294967295
  8018b3c:	e005      	b.n	8018b4a <data_stage_xact+0x72>
   memcpy(dest, src, count);
  8018b3e:	68ba      	ldr	r2, [r7, #8]
@@ -62422,7 +62422,7 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
  801a678:	2b00      	cmp	r3, #0
  801a67a:	d004      	beq.n	801a686 <move_window+0x4a>
 				sector = 0xFFFFFFFF;	/* Invalidate window if data is not reliable */
- 801a67c:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 801a67c:	f04f 33ff 	mov.w	r3, #4294967295
  801a680:	603b      	str	r3, [r7, #0]
 				res = FR_DISK_ERR;
  801a682:	2301      	movs	r3, #1
@@ -62645,7 +62645,7 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluste
 
 	} else {
 		val = 0xFFFFFFFF;	/* Default value falls on disk error */
- 801a7d8:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 801a7d8:	f04f 33ff 	mov.w	r3, #4294967295
  801a7dc:	617b      	str	r3, [r7, #20]
 
 		switch (fs->fs_type) {
@@ -63115,7 +63115,7 @@ FRESULT remove_chain (	/* FR_OK(0):succeeded, !=0:error */
  801ab00:	2b00      	cmp	r3, #0
  801ab02:	d00c      	beq.n	801ab1e <remove_chain+0x4a>
 		res = put_fat(fs, pclst, 0xFFFFFFFF);
- 801ab04:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801ab04:	f04f 32ff 	mov.w	r2, #4294967295
  801ab08:	6879      	ldr	r1, [r7, #4]
  801ab0a:	69b8      	ldr	r0, [r7, #24]
  801ab0c:	f7ff fef8 	bl	801a900 <put_fat>
@@ -63148,7 +63148,7 @@ FRESULT remove_chain (	/* FR_OK(0):succeeded, !=0:error */
  801ab36:	e02e      	b.n	801ab96 <remove_chain+0xc2>
 		if (nxt == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error? */
  801ab38:	697b      	ldr	r3, [r7, #20]
- 801ab3a:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801ab3a:	f1b3 3fff 	cmp.w	r3, #4294967295
  801ab3e:	d101      	bne.n	801ab44 <remove_chain+0x70>
  801ab40:	2301      	movs	r3, #1
  801ab42:	e028      	b.n	801ab96 <remove_chain+0xc2>
@@ -63273,7 +63273,7 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
  801abe2:	e070      	b.n	801acc6 <create_chain+0x128>
 		if (cs == 0xFFFFFFFF) return cs;	/* A disk error occurred */
  801abe4:	68fb      	ldr	r3, [r7, #12]
- 801abe6:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801abe6:	f1b3 3fff 	cmp.w	r3, #4294967295
  801abea:	d101      	bne.n	801abf0 <create_chain+0x52>
  801abec:	68fb      	ldr	r3, [r7, #12]
  801abee:	e06a      	b.n	801acc6 <create_chain+0x128>
@@ -63332,7 +63332,7 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
  801ac38:	2b01      	cmp	r3, #1
  801ac3a:	d003      	beq.n	801ac44 <create_chain+0xa6>
  801ac3c:	68fb      	ldr	r3, [r7, #12]
- 801ac3e:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801ac3e:	f1b3 3fff 	cmp.w	r3, #4294967295
  801ac42:	d101      	bne.n	801ac48 <create_chain+0xaa>
  801ac44:	68fb      	ldr	r3, [r7, #12]
  801ac46:	e03e      	b.n	801acc6 <create_chain+0x128>
@@ -63347,7 +63347,7 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
  801ac54:	bf00      	nop
 		}
 		res = put_fat(fs, ncl, 0xFFFFFFFF);	/* Mark the new cluster 'EOC' */
- 801ac56:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801ac56:	f04f 32ff 	mov.w	r2, #4294967295
  801ac5a:	69f9      	ldr	r1, [r7, #28]
  801ac5c:	6938      	ldr	r0, [r7, #16]
  801ac5e:	f7ff fe4f 	bl	801a900 <put_fat>
@@ -63404,7 +63404,7 @@ DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:Disk err
  801acb4:	7dfb      	ldrb	r3, [r7, #23]
  801acb6:	2b01      	cmp	r3, #1
  801acb8:	d102      	bne.n	801acc0 <create_chain+0x122>
- 801acba:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 801acba:	f04f 33ff 	mov.w	r3, #4294967295
  801acbe:	e000      	b.n	801acc2 <create_chain+0x124>
  801acc0:	2301      	movs	r3, #1
  801acc2:	61fb      	str	r3, [r7, #28]
@@ -63582,7 +63582,7 @@ FRESULT dir_sdi (	/* FR_OK(0):succeeded, !=0:error */
  801adb0:	6178      	str	r0, [r7, #20]
 			if (clst == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error */
  801adb2:	697b      	ldr	r3, [r7, #20]
- 801adb4:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801adb4:	f1b3 3fff 	cmp.w	r3, #4294967295
  801adb8:	d101      	bne.n	801adbe <dir_sdi+0x88>
  801adba:	2301      	movs	r3, #1
  801adbc:	e032      	b.n	801ae24 <dir_sdi+0xee>
@@ -63747,7 +63747,7 @@ FRESULT dir_next (	/* FR_OK(0):succeeded, FR_NO_FILE:End of table, FR_DENIED:Cou
  801aeb6:	e07a      	b.n	801afae <dir_next+0x182>
 				if (clst == 0xFFFFFFFF) return FR_DISK_ERR;		/* Disk error */
  801aeb8:	697b      	ldr	r3, [r7, #20]
- 801aeba:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801aeba:	f1b3 3fff 	cmp.w	r3, #4294967295
  801aebe:	d101      	bne.n	801aec4 <dir_next+0x98>
  801aec0:	2301      	movs	r3, #1
  801aec2:	e074      	b.n	801afae <dir_next+0x182>
@@ -63791,7 +63791,7 @@ FRESULT dir_next (	/* FR_OK(0):succeeded, FR_NO_FILE:End of table, FR_DENIED:Cou
  801af00:	e055      	b.n	801afae <dir_next+0x182>
 					if (clst == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error */
  801af02:	697b      	ldr	r3, [r7, #20]
- 801af04:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801af04:	f1b3 3fff 	cmp.w	r3, #4294967295
  801af08:	d101      	bne.n	801af0e <dir_next+0xe2>
  801af0a:	2301      	movs	r3, #1
  801af0c:	e04f      	b.n	801afae <dir_next+0x182>
@@ -64941,7 +64941,7 @@ int get_ldnumber (		/* Returns logical drive number (-1:invalid drive) */
 	const TCHAR *tp, *tt;
 	UINT i;
 	int vol = -1;
- 801b55e:	f04f 33ff 	mov.w	r3, #4294967295	@ 0xffffffff
+ 801b55e:	f04f 33ff 	mov.w	r3, #4294967295
  801b562:	613b      	str	r3, [r7, #16]
 	char c;
 	TCHAR tc;
@@ -65051,7 +65051,7 @@ BYTE check_fs (	/* 0:FAT, 1:exFAT, 2:Valid BS but not FAT, 3:Not a BS, 4:Disk er
  801b5ec:	2200      	movs	r2, #0
  801b5ee:	70da      	strb	r2, [r3, #3]
  801b5f0:	687b      	ldr	r3, [r7, #4]
- 801b5f2:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801b5f2:	f04f 32ff 	mov.w	r2, #4294967295
  801b5f6:	62da      	str	r2, [r3, #44]	@ 0x2c
 	if (move_window(fs, sect) != FR_OK) return 4;	/* Load boot record */
  801b5f8:	6839      	ldr	r1, [r7, #0]
@@ -65671,7 +65671,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 		/* Get FSINFO if available */
 		fs->last_clst = fs->free_clst = 0xFFFFFFFF;		/* Initialize cluster allocation information */
  801ba38:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
- 801ba3a:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801ba3a:	f04f 32ff 	mov.w	r2, #4294967295
  801ba3e:	611a      	str	r2, [r3, #16]
  801ba40:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
  801ba42:	691a      	ldr	r2, [r3, #16]
@@ -66413,7 +66413,7 @@ FRESULT f_open (
  801beee:	f887 305f 	strb.w	r3, [r7, #95]	@ 0x5f
 					if (clst == 0xFFFFFFFF) res = FR_DISK_ERR;
  801bef2:	6dbb      	ldr	r3, [r7, #88]	@ 0x58
- 801bef4:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801bef4:	f1b3 3fff 	cmp.w	r3, #4294967295
  801bef8:	d102      	bne.n	801bf00 <f_open+0x2e4>
  801befa:	2301      	movs	r3, #1
  801befc:	f887 305f 	strb.w	r3, [r7, #95]	@ 0x5f
@@ -66658,7 +66658,7 @@ FRESULT f_open (
  801c08a:	e0f2      	b.n	801c272 <f_write+0x2e2>
 				if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
  801c08c:	6abb      	ldr	r3, [r7, #40]	@ 0x28
- 801c08e:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801c08e:	f1b3 3fff 	cmp.w	r3, #4294967295
  801c092:	d104      	bne.n	801c09e <f_write+0x10e>
  801c094:	68fb      	ldr	r3, [r7, #12]
  801c096:	2201      	movs	r2, #1
@@ -67230,7 +67230,7 @@ FRESULT f_lseek (
  801c40c:	f000 80d1 	beq.w	801c5b2 <f_lseek+0x1e8>
 		if (ofs == CREATE_LINKMAP) {	/* Create CLMT */
  801c410:	683b      	ldr	r3, [r7, #0]
- 801c412:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801c412:	f1b3 3fff 	cmp.w	r3, #4294967295
  801c416:	d15a      	bne.n	801c4ce <f_lseek+0x104>
 			tbl = fp->cltbl;
  801c418:	687b      	ldr	r3, [r7, #4]
@@ -67286,7 +67286,7 @@ FRESULT f_lseek (
  801c46a:	e1b3      	b.n	801c7d4 <f_lseek+0x40a>
 						if (cl == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
  801c46c:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
- 801c46e:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801c46e:	f1b3 3fff 	cmp.w	r3, #4294967295
  801c472:	d104      	bne.n	801c47e <f_lseek+0xb4>
  801c474:	687b      	ldr	r3, [r7, #4]
  801c476:	2201      	movs	r2, #1
@@ -67568,7 +67568,7 @@ FRESULT f_lseek (
  801c652:	e0bf      	b.n	801c7d4 <f_lseek+0x40a>
 					if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
  801c654:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
- 801c656:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801c656:	f1b3 3fff 	cmp.w	r3, #4294967295
  801c65a:	d104      	bne.n	801c666 <f_lseek+0x29c>
  801c65c:	687b      	ldr	r3, [r7, #4]
  801c65e:	2201      	movs	r2, #1
@@ -67641,7 +67641,7 @@ FRESULT f_lseek (
 					}
 					if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
  801c6be:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
- 801c6c0:	f1b3 3fff 	cmp.w	r3, #4294967295	@ 0xffffffff
+ 801c6c0:	f1b3 3fff 	cmp.w	r3, #4294967295
  801c6c4:	d104      	bne.n	801c6d0 <f_lseek+0x306>
  801c6c6:	687b      	ldr	r3, [r7, #4]
  801c6c8:	2201      	movs	r2, #1
@@ -68298,7 +68298,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cab0:	230a      	movne	r3, #10
  801cab2:	2308      	moveq	r3, #8
  801cab4:	f106 4c00 	add.w	ip, r6, #2147483648	@ 0x80000000
- 801cab8:	f10c 3cff 	add.w	ip, ip, #4294967295	@ 0xffffffff
+ 801cab8:	f10c 3cff 	add.w	ip, ip, #4294967295
  801cabc:	2200      	movs	r2, #0
  801cabe:	fbbc f9f3 	udiv	r9, ip, r3
  801cac2:	4610      	mov	r0, r2
@@ -68330,7 +68330,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cb02:	d804      	bhi.n	801cb0e <_strtol_l.isra.0+0xc6>
  801cb04:	3c57      	subs	r4, #87	@ 0x57
  801cb06:	e7e4      	b.n	801cad2 <_strtol_l.isra.0+0x8a>
- 801cb08:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801cb08:	f04f 32ff 	mov.w	r2, #4294967295
  801cb0c:	e7ed      	b.n	801caea <_strtol_l.isra.0+0xa2>
  801cb0e:	1c53      	adds	r3, r2, #1
  801cb10:	d108      	bne.n	801cb24 <_strtol_l.isra.0+0xdc>
@@ -68566,7 +68566,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cd28:	4628      	mov	r0, r5
  801cd2a:	f000 f959 	bl	801cfe0 <__swsetup_r>
  801cd2e:	b380      	cbz	r0, 801cd92 <_puts_r+0x9a>
- 801cd30:	f04f 35ff 	mov.w	r5, #4294967295	@ 0xffffffff
+ 801cd30:	f04f 35ff 	mov.w	r5, #4294967295
  801cd34:	6e63      	ldr	r3, [r4, #100]	@ 0x64
  801cd36:	07da      	lsls	r2, r3, #31
  801cd38:	d405      	bmi.n	801cd46 <_puts_r+0x4e>
@@ -68638,7 +68638,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cdc0:	da08      	bge.n	801cdd4 <sniprintf+0x20>
  801cdc2:	238b      	movs	r3, #139	@ 0x8b
  801cdc4:	602b      	str	r3, [r5, #0]
- 801cdc6:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801cdc6:	f04f 30ff 	mov.w	r0, #4294967295
  801cdca:	b01d      	add	sp, #116	@ 0x74
  801cdcc:	e8bd 4030 	ldmia.w	sp!, {r4, r5, lr}
  801cdd0:	b002      	add	sp, #8
@@ -68648,7 +68648,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cddc:	f04f 0300 	mov.w	r3, #0
  801cde0:	931b      	str	r3, [sp, #108]	@ 0x6c
  801cde2:	bf14      	ite	ne
- 801cde4:	f104 33ff 	addne.w	r3, r4, #4294967295	@ 0xffffffff
+ 801cde4:	f104 33ff 	addne.w	r3, r4, #4294967295
  801cde8:	4623      	moveq	r3, r4
  801cdea:	9304      	str	r3, [sp, #16]
  801cdec:	9307      	str	r3, [sp, #28]
@@ -68773,7 +68773,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cef6:	da05      	bge.n	801cf04 <_vsniprintf_r+0x1a>
  801cef8:	238b      	movs	r3, #139	@ 0x8b
  801cefa:	6003      	str	r3, [r0, #0]
- 801cefc:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801cefc:	f04f 30ff 	mov.w	r0, #4294967295
  801cf00:	b01b      	add	sp, #108	@ 0x6c
  801cf02:	bd30      	pop	{r4, r5, pc}
  801cf04:	f44f 7302 	mov.w	r3, #520	@ 0x208
@@ -68781,7 +68781,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cf0c:	f04f 0300 	mov.w	r3, #0
  801cf10:	9319      	str	r3, [sp, #100]	@ 0x64
  801cf12:	bf14      	ite	ne
- 801cf14:	f104 33ff 	addne.w	r3, r4, #4294967295	@ 0xffffffff
+ 801cf14:	f104 33ff 	addne.w	r3, r4, #4294967295
  801cf18:	4623      	moveq	r3, r4
  801cf1a:	9302      	str	r3, [sp, #8]
  801cf1c:	9305      	str	r3, [sp, #20]
@@ -68837,7 +68837,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801cf86:	4628      	mov	r0, r5
  801cf88:	f000 f82a 	bl	801cfe0 <__swsetup_r>
  801cf8c:	b118      	cbz	r0, 801cf96 <__swbuf_r+0x32>
- 801cf8e:	f04f 37ff 	mov.w	r7, #4294967295	@ 0xffffffff
+ 801cf8e:	f04f 37ff 	mov.w	r7, #4294967295
  801cf92:	4638      	mov	r0, r7
  801cf94:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
  801cf96:	6823      	ldr	r3, [r4, #0]
@@ -68895,7 +68895,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d002:	602a      	str	r2, [r5, #0]
  801d004:	f043 0340 	orr.w	r3, r3, #64	@ 0x40
  801d008:	81a3      	strh	r3, [r4, #12]
- 801d00a:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801d00a:	f04f 30ff 	mov.w	r0, #4294967295
  801d00e:	e033      	b.n	801d078 <__swsetup_r+0x98>
  801d010:	0758      	lsls	r0, r3, #29
  801d012:	d512      	bpl.n	801d03a <__swsetup_r+0x5a>
@@ -69100,7 +69100,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
 0801d1ae <memcpy>:
  801d1ae:	440a      	add	r2, r1
  801d1b0:	4291      	cmp	r1, r2
- 801d1b2:	f100 33ff 	add.w	r3, r0, #4294967295	@ 0xffffffff
+ 801d1b2:	f100 33ff 	add.w	r3, r0, #4294967295
  801d1b6:	d100      	bne.n	801d1ba <memcpy+0xc>
  801d1b8:	4770      	bx	lr
  801d1ba:	b510      	push	{r4, lr}
@@ -69196,7 +69196,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d276:	f000 fe11 	bl	801de9c <_sbrk_r>
  801d27a:	1c43      	adds	r3, r0, #1
  801d27c:	d103      	bne.n	801d286 <sbrk_aligned+0x26>
- 801d27e:	f04f 34ff 	mov.w	r4, #4294967295	@ 0xffffffff
+ 801d27e:	f04f 34ff 	mov.w	r4, #4294967295
  801d282:	4620      	mov	r0, r4
  801d284:	bd70      	pop	{r4, r5, r6, pc}
  801d286:	1cc4      	adds	r4, r0, #3
@@ -69406,7 +69406,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d464:	89a3      	ldrh	r3, [r4, #12]
  801d466:	f043 0340 	orr.w	r3, r3, #64	@ 0x40
  801d46a:	81a3      	strh	r3, [r4, #12]
- 801d46c:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801d46c:	f04f 30ff 	mov.w	r0, #4294967295
  801d470:	e7e9      	b.n	801d446 <__ssputs_r+0x8a>
 	...
 
@@ -69429,7 +69429,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d496:	b930      	cbnz	r0, 801d4a6 <_svfiprintf_r+0x32>
  801d498:	230c      	movs	r3, #12
  801d49a:	603b      	str	r3, [r7, #0]
- 801d49c:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801d49c:	f04f 30ff 	mov.w	r0, #4294967295
  801d4a0:	b01d      	add	sp, #116	@ 0x74
  801d4a2:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
  801d4a6:	2340      	movs	r3, #64	@ 0x40
@@ -69465,7 +69465,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d4f6:	2b00      	cmp	r3, #0
  801d4f8:	f000 809f 	beq.w	801d63a <_svfiprintf_r+0x1c6>
  801d4fc:	2300      	movs	r3, #0
- 801d4fe:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801d4fe:	f04f 32ff 	mov.w	r2, #4294967295
  801d502:	e9cd 2305 	strd	r2, r3, [sp, #20]
  801d506:	f10a 0a01 	add.w	sl, sl, #1
  801d50a:	9304      	str	r3, [sp, #16]
@@ -69687,7 +69687,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d6fe:	6e6b      	ldr	r3, [r5, #100]	@ 0x64
  801d700:	07dc      	lsls	r4, r3, #31
  801d702:	d504      	bpl.n	801d70e <_vfiprintf_r+0x4e>
- 801d704:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801d704:	f04f 30ff 	mov.w	r0, #4294967295
  801d708:	b01d      	add	sp, #116	@ 0x74
  801d70a:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
  801d70e:	89ab      	ldrh	r3, [r5, #12]
@@ -69727,7 +69727,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d768:	2b00      	cmp	r3, #0
  801d76a:	f000 809f 	beq.w	801d8ac <_vfiprintf_r+0x1ec>
  801d76e:	2300      	movs	r3, #0
- 801d770:	f04f 32ff 	mov.w	r2, #4294967295	@ 0xffffffff
+ 801d770:	f04f 32ff 	mov.w	r2, #4294967295
  801d774:	e9cd 2305 	strd	r2, r3, [sp, #20]
  801d778:	f10a 0a01 	add.w	sl, sl, #1
  801d77c:	9304      	str	r3, [sp, #16]
@@ -69959,7 +69959,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801d98e:	47c8      	blx	r9
  801d990:	3001      	adds	r0, #1
  801d992:	d103      	bne.n	801d99c <_printf_common+0xac>
- 801d994:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801d994:	f04f 30ff 	mov.w	r0, #4294967295
  801d998:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  801d99c:	3501      	adds	r5, #1
  801d99e:	e7c6      	b.n	801d92e <_printf_common+0x3e>
@@ -70102,7 +70102,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801db02:	bfde      	ittt	le
  801db04:	2330      	movle	r3, #48	@ 0x30
  801db06:	f806 3c01 	strble.w	r3, [r6, #-1]
- 801db0a:	f106 36ff 	addle.w	r6, r6, #4294967295	@ 0xffffffff
+ 801db0a:	f106 36ff 	addle.w	r6, r6, #4294967295
  801db0e:	1b92      	subs	r2, r2, r6
  801db10:	6122      	str	r2, [r4, #16]
  801db12:	f8cd a000 	str.w	sl, [sp]
@@ -70113,7 +70113,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801db1e:	f7ff fee7 	bl	801d8f0 <_printf_common>
  801db22:	3001      	adds	r0, #1
  801db24:	d14a      	bne.n	801dbbc <_printf_i+0x1f0>
- 801db26:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801db26:	f04f 30ff 	mov.w	r0, #4294967295
  801db2a:	b004      	add	sp, #16
  801db2c:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  801db30:	6823      	ldr	r3, [r4, #0]
@@ -70328,7 +70328,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  801dcf2:	f9b4 300c 	ldrsh.w	r3, [r4, #12]
  801dcf6:	f043 0340 	orr.w	r3, r3, #64	@ 0x40
  801dcfa:	81a3      	strh	r3, [r4, #12]
- 801dcfc:	f04f 30ff 	mov.w	r0, #4294967295	@ 0xffffffff
+ 801dcfc:	f04f 30ff 	mov.w	r0, #4294967295
  801dd00:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
  801dd04:	4407      	add	r7, r0
  801dd06:	eba8 0800 	sub.w	r8, r8, r0
