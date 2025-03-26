@@ -190,7 +190,7 @@ int main(void)
   set_servo_speed(150);
 
   //list_directory("", 0);
-  //tud_init(BOARD_TUD_RHPORT);
+  tud_init(BOARD_TUD_RHPORT);
 
   /* USER CODE END 2 */
 
