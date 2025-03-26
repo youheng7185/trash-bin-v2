@@ -1,8 +1,13 @@
 
 # Recycle bin firmware
 
-A brief description of what this project does and who it's for
+Known issues:
 
+* unable to run at maximum 550mhz clock, only 240mhz tested stable
+
+* first recorded wav on each startup will have little bit of empty data on the beginning of the file, but after that recording is normal
+
+*  mfcc output is now output to 13 value only, need to investigate whats wrong later
 
 ## Usage
 
