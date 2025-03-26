@@ -37,6 +37,7 @@ void sd_init() {
 char latest_audio_filename[32];
 char latest_mfcc_filename[32];
 FIL file;
+recording_state_t recording_state = NOT_READY;
 
 #define AUDIO_FOLDER "AUDIO"
 #define FILE_TEMPLATE "AUDIO%03d.WAV"
@@ -106,7 +107,7 @@ void list_directory(const char *path, uint8_t depth) {
 }
 
 #define SAMPLING_RATE   16000  // 48 kHz
-#define PERIOD          10       // 5-second recording
+#define PERIOD          2       // 5-second recording
 #define BUFFER_SIZE     16384 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
 #define GAIN            5
 
@@ -199,7 +200,8 @@ void start_audio_recording() {
                 for (uint8_t i = 0; i < 4; i++)
                 {
                 	convert_mfcc(&left_pcm_buffer[i * 512]);
-                	f_write(&file_mfcc, mfcc_output, 26 * sizeof(q15_t), &bytes_written_mfcc);
+                	f_write(&file_mfcc, mfcc_output, 13 * sizeof(q15_t), &bytes_written_mfcc);
+                	// fixme unknown error, why after 13 is empty, so lets record until 13
                 }
 
                 buffer_ready = 0;
@@ -218,22 +220,16 @@ void start_audio_recording() {
         // Close file
         f_close(&file);
         f_close(&file_mfcc);
+
         my_printf("Recording complete\r\n");
     } else {
         my_printf("File open failed\r\n");
     }
 }
 
-bool record_and_convert()
+int record_and_convert()
 {
-	if (recording_status == READY)
-	{
-		recording_status = RECORDING;
-		get_next_audio_filename();
-		start_audio_recording();
-		recording_status = READY;
-		return true;
-	} else {
-		return false;
-	}
+	int num = get_next_audio_filename();
+	start_audio_recording();
+	return num;
 }

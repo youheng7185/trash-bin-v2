@@ -149,6 +149,7 @@
 "./Libs/tinyusb/src/class/hid/hid_device.o"
 "./Libs/tinyusb/src/class/hid/hid_host.o"
 "./Libs/tinyusb/src/class/midi/midi_device.o"
+"./Libs/tinyusb/src/class/midi/midi_host.o"
 "./Libs/tinyusb/src/class/msc/msc_device.o"
 "./Libs/tinyusb/src/class/msc/msc_host.o"
 "./Libs/tinyusb/src/class/net/ecm_rndis_device.o"

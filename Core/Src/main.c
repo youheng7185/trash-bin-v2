@@ -99,7 +99,19 @@ void tud_umount_cb(void) {
   //Do nothing for now
 }
 
-recording_status_t recording_status = NOT_READY;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == GPIO_PIN_3) {
+    	my_printf("hello from exti\r\n");
+    	if (recording_state == READY)
+    	{
+    		recording_state = DO_RECORDING;
+    	} else {
+    		my_printf("not ready for recording\r\n");
+    	}
+    }
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -144,10 +156,6 @@ int main(void)
   MX_USB_OTG_HS_PCD_Init();
   /* USER CODE BEGIN 2 */
   my_printf("test print\r\n");
-  float pi = 3.142;
-  char tx_buffer[40];
-  sprintf(tx_buffer, "test print float: %f\r\n", pi);
-  my_printf(tx_buffer);
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
@@ -164,7 +172,7 @@ int main(void)
   st7920_clear();
   st7920_print(1, 1, "sd card mount success");
   st7920_sendBuffer();
-  recording_status = READY;
+  recording_state = READY; // READY as sd card success, can write data to it
 
   if(vl53l0x_init())
   {
@@ -175,32 +183,38 @@ int main(void)
 	  st7920_print(1, 9, "vl53l0x init failed");
   }
   my_printf("finish setup\r\n");
+  st7920_print(1, 17, "waiting for exti");
   st7920_sendBuffer();
 
   servo360_init();
   set_servo_speed(150);
 
-  list_directory("", 0);
-  /*
-  get_next_audio_filename();
+  //list_directory("", 0);
+  //tud_init(BOARD_TUD_RHPORT);
 
-  st7920_print(1, 17, "record start");
-  st7920_sendBuffer();
-  start_audio_recording();
-  st7920_print(1, 25, "record done");
-  st7920_sendBuffer();
-  */
-  tud_init(BOARD_TUD_RHPORT);
-  st7920_print(1, 17, "setup done\r\n");
-  st7920_sendBuffer();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (recording_state == DO_RECORDING) {
+		recording_state = RECORDING;
+		my_printf("recording started from exti\r\n");
+		st7920_clear();
+		st7920_print(1, 17, "record start");
+		st7920_sendBuffer();
+		int num_of_file = record_and_convert();
+		char tx_buffer[30];
+		sprintf(tx_buffer, "record saved to %d", num_of_file);
+		st7920_print(1, 25, tx_buffer);
+		st7920_sendBuffer();
+		recording_state = READY;
+	  }
+	  /*
 	  tud_task();
 	  HAL_Delay(100);
+	  */
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
