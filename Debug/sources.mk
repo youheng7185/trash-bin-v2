@@ -88,4 +88,5 @@ Libs/tinyusb/src \
 Libs/tinyusb/src/typec \
 Middlewares/Third_Party/FatFs/src \
 Middlewares/Third_Party/FatFs/src/option \
+X-CUBE-AI/App \
 

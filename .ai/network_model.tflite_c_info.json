@@ -2416,44 +2416,44 @@
   ],
   "environment": {
     "generated_model": {
-      "generated_time": "2025-04-27T08:26:05+0800",
+      "generated_time": "2025-04-29T21:57:45+0800",
       "model_files": [
         {
           "name": "network_data_params.h",
-          "signature": "0x1fa45526209a927eab82433166ceb1e1"
+          "signature": "0x9a53d75467253b7b9b2b956d16c83ec9"
         },
         {
           "name": "network_data_params.c",
-          "signature": "0x6e7f92e5a2f79c2a2296a15b3bafa8a5"
+          "signature": "0xe72a2e94d7f319e715e57967c94b3536"
         },
         {
           "name": "network_data.h",
-          "signature": "0x7438bef828efce614cab9edd9c9398d9"
+          "signature": "0xfe979edcab09f017b19284d49967de5d"
         },
         {
           "name": "network_data.c",
-          "signature": "0x0193e9894191fa0018d7f2f067c82e2a"
+          "signature": "0x80794f291bf6fb9659e02fc9a05461ec"
         },
         {
           "name": "network_config.h",
-          "signature": "0xaeb5568af92c572212b0ef3c48fe2824"
+          "signature": "0x18bb5476395f574fc8fbc92dc07f431e"
         },
         {
           "name": "network.h",
-          "signature": "0x34c4feac4f2f37de98e367af6c2ff0eb"
+          "signature": "0x1849ebee25dc18dd8c38a876524417c1"
         },
         {
           "name": "network.c",
-          "signature": "0xa87196d1b32ac2075b44adca3a674382"
+          "signature": "0xddd8b52cb55523bdd432d10b3bfa2a0c"
         }
       ],
       "name": "network"
     },
-    "network_signature": "0x9ef834d492f0138b",
+    "network_signature": "0xf8f60e340fba1449",
     "test_name": "",
     "tools": [
       {
-        "arguments": "generate --target stm32h7 --name network -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/cmsis_nn_output/model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace337711779421006673720381086778468 --output C:/Users/lapchong/.stm32cubemx/network_output",
+        "arguments": "generate --target stm32h7 --name network -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/cmsis_nn_output/model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace966418475506006719989761535985828 --output C:/Users/lapchong/.stm32cubemx/network_output",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],
