@@ -88,12 +88,6 @@ static void MX_USB_OTG_HS_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int _write(int file, char *data, int len)
-{
-  HAL_UART_Transmit(&hlpuart1, (uint8_t *)data, len, HAL_MAX_DELAY);
-  return len;
-}
-
 void tud_mount_cb(void) {
   //Do nothing for now
 }

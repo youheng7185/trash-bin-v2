@@ -9,7 +9,6 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include X-CUBE-AI/App/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/option/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/subdir.mk
 -include Libs/tinyusb/src/typec/subdir.mk
@@ -127,7 +126,7 @@ main-build: rubbish-bin-v3.elf secondary-outputs
 
 # Tool invocations
 rubbish-bin-v3.elf rubbish-bin-v3.map: $(OBJS) $(USER_OBJS) C:\Users\lapchong\Downloads\workspace-new\rubbish-bin-v3\STM32H723ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "rubbish-bin-v3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\lapchong\Downloads\workspace-new\rubbish-bin-v3\STM32H723ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rubbish-bin-v3.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "rubbish-bin-v3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\lapchong\Downloads\workspace-new\rubbish-bin-v3\STM32H723ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rubbish-bin-v3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
