@@ -177,10 +177,6 @@ int main(void)
   DWT->CYCCNT = 0;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 
-  nnom_init();
-  test_nnom();
-  while(1);
-
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
@@ -235,7 +231,6 @@ int main(void)
 		st7920_print(1, 25, tx_buffer);
 		st7920_sendBuffer();
 		print_mfcc_frame_final(mfcc_frame_final);
-		process_mfcc_example(mfcc_frame_final);
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }
