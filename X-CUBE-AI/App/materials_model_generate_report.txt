@@ -1,0 +1,318 @@
+ST Edge AI Core v2.0.0-20049
+Created date          : 2025-05-03 21:42:58
+Parameters            : generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace4413689418136009067146519305911421 --output C:/Users/lapchong/.stm32cubemx/network_output
+
+Exec/report summary (generate)
+-----------------------------------------------------------------------------------------------------------------------------
+model file         :   C:\Users\lapchong\Downloads\audio\useable\smart_waste_bin_data_samples\v7_v3_48_conv2d_model.tflite   
+type               :   tflite                                                                                                
+c_name             :   materials_model                                                                                       
+compression        :   none                                                                                                  
+options            :   allocate-inputs, allocate-outputs                                                                     
+optimization       :   balanced                                                                                              
+target/series      :   stm32h7                                                                                               
+workspace dir      :   C:\Users\lapchong\AppData\Local\Temp\mxAI_workspace4413689418136009067146519305911421                 
+output dir         :   C:\Users\lapchong\.stm32cubemx\network_output                                                         
+model_fmt          :   float                                                                                                 
+model_name         :   v7_v3_48_conv2d_model                                                                                 
+model_hash         :   0xd32e308e601e685731222f0082ea732d                                                                    
+params #           :   27,940 items (29.64 KiB)                                                                              
+-----------------------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_input_10', f32(1x48x13x1), 2.44 KBytes, activations                                  
+output 1/1         :   'nl_15', f32(1x4), 16 Bytes, activations                                                              
+macc               :   1,488,048                                                                                             
+weights (ro)       :   111,760 B (109.14 KiB) (1 segment)                                                                    
+activations (rw)   :   42,468 B (41.47 KiB) (1 segment) *                                                                    
+ram (total)        :   42,468 B (41.47 KiB) = 42,468 + 0 + 0                                                                 
+-----------------------------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers can be used from the activations buffer
+
+Model name - v7_v3_48_conv2d_model
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+m_id   layer (type,original)                            oshape                 param/size           macc                     connected to   | c_size             c_macc             c_type                         
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+0      serving_default_input_10 (Input, )               [b:1,h:48,w:13,c:1]                                                                 | +640(+100.0%)      +99,856(+100.0%)   Conv2D_/Nonlinearity_[0, 1]    
+       conv2d_0 (Conv2D, CONV_2D)                       [b:1,h:48,w:13,c:16]   160/640            89,872         serving_default_input_10   | -640(-100.0%)      -89,872(-100.0%)   
+       nl_0_nl (Nonlinearity, CONV_2D)                  [b:1,h:48,w:13,c:16]                       9,984                         conv2d_0   |                    -9,984(-100.0%)    
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+1      sequential_batch_n..tchNormV31 (Placeholder, )   [b:16]                 16/64                                                        | -64(-100.0%)                          
+       eltwise_1 (Eltwise, MUL)                         [b:1,h:48,w:13,c:16]                       9,984                          nl_0_nl   |                    -9,984(-100.0%)    
+                                                                                                           sequential_batch_n..tchNormV31   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+2      sequential_batch_n..atchNormV3 (Placeholder, )   [b:16]                 16/64                                                        | +64(+100.0%)       +19,968(+100.0%)   ScaleBias_[2]                  
+       eltwise_2 (Eltwise, ADD)                         [b:1,h:48,w:13,c:16]                       9,984                        eltwise_1   |                    -9,984(-100.0%)    
+                                                                                                           sequential_batch_n..atchNormV3   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+3      pool_3 (Pool, AVERAGE_POOL_2D)                   [b:1,h:24,w:6,c:16]                        9,216                        eltwise_2   |                                       Pool_[3]                       
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+4      conv2d_4 (Conv2D, CONV_2D)                       [b:1,h:24,w:6,c:32]    4,640/4,736       663,584                           pool_3   | +13,824(+291.9%)   +4,608(+0.7%)      Conv2D_/Nonlinearity_[4, 5]    
+       nl_4_nl (Nonlinearity, CONV_2D)                  [b:1,h:24,w:6,c:32]                        4,608                         conv2d_4   |                    -4,608(-100.0%)    
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+5      sequential_batch_n..tchNormV31 (Placeholder, )   [b:32]                 32/128                                                       | -128(-100.0%)                         
+       eltwise_5 (Eltwise, MUL)                         [b:1,h:24,w:6,c:32]                        4,608                          nl_4_nl   |                    -4,608(-100.0%)    
+                                                                                                           sequential_batch_n..tchNormV31   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+6      sequential_batch_n..atchNormV3 (Placeholder, )   [b:32]                 32/128                                                       | +128(+100.0%)      +9,216(+100.0%)    ScaleBias_[6]                  
+       eltwise_6 (Eltwise, ADD)                         [b:1,h:24,w:6,c:32]                        4,608                        eltwise_5   |                    -4,608(-100.0%)    
+                                                                                                           sequential_batch_n..atchNormV3   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+7      pool_7 (Pool, AVERAGE_POOL_2D)                   [b:1,h:12,w:3,c:32]                        4,608                        eltwise_6   |                                       Pool_[7]                       
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+8      conv2d_8 (Conv2D, CONV_2D)                       [b:1,h:12,w:3,c:64]    18,496/18,688     663,616                           pool_7   | +55,296(+295.9%)   +2,304(+0.3%)      Conv2D_/Nonlinearity_[8, 9]    
+       nl_8_nl (Nonlinearity, CONV_2D)                  [b:1,h:12,w:3,c:64]                        2,304                         conv2d_8   |                    -2,304(-100.0%)    
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+9      sequential_batch_n..tchNormV31 (Placeholder, )   [b:64]                 64/256                                                       | -256(-100.0%)                         
+       eltwise_9 (Eltwise, MUL)                         [b:1,h:12,w:3,c:64]                        2,304                          nl_8_nl   |                    -2,304(-100.0%)    
+                                                                                                           sequential_batch_n..tchNormV31   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+10     sequential_batch_n..atchNormV3 (Placeholder, )   [b:64]                 64/256                                                       | +256(+100.0%)      +4,608(+100.0%)    ScaleBias_[10]                 
+       eltwise_10 (Eltwise, ADD)                        [b:1,h:12,w:3,c:64]                        2,304                        eltwise_9   |                    -2,304(-100.0%)    
+                                                                                                           sequential_batch_n..atchNormV3   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+11     pool_11 (Pool, AVERAGE_POOL_2D)                  [b:1,h:6,w:1,c:64]                         1,536                       eltwise_10   |                                       Pool_[11]                      
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+12     pool_12 (Pool, MEAN)                             [b:1,h:1,w:1,c:64]                           384                          pool_11   |                                       Pool_[12]                      
+       reshape_12_reshape (Reshape, MEAN)               [b:1,c:64]                                                                pool_12   |                                       
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+13     sequential_dense_MatMul (Placeholder, )          [b:64,c:64]            4,096/4,096                                                  | +12,544(+306.2%)   +4,224(+100.0%)    Dense_/Nonlinearity_[13, 14]   
+       sequential_dense_B..VariableOp (Placeholder, )   [b:64]                 64/256                                                       | -256(-100.0%)                         
+       gemm_13 (Gemm, FULLY_CONNECTED)                  [b:1,c:64]                                 4,160               reshape_12_reshape   |                    -4,160(-100.0%)    
+                                                                                                                  sequential_dense_MatMul   | 
+                                                                                                           sequential_dense_B..VariableOp   | 
+       nl_13_nl (Nonlinearity, FULLY_CONNECTED)         [b:1,c:64]                                    64                          gemm_13   |                    -64(-100.0%)       
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+14     sequential_dense_1_MatMul (Placeholder, )        [b:4,c:64]             256/1,024                                                    | +16(+1.6%)         +260(+100.0%)      Dense_[15]                     
+       sequential_dense_1..VariableOp (Placeholder, )   [b:4]                  4/16                                                         | -16(-100.0%)                          
+       gemm_14 (Gemm, FULLY_CONNECTED)                  [b:1,c:4]                                    260                         nl_13_nl   |                    -260(-100.0%)      
+                                                                                                                sequential_dense_1_MatMul   | 
+                                                                                                           sequential_dense_1..VariableOp   | 
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+15     nl_15 (Nonlinearity, SOFTMAX)                    [b:1,c:4]                                     60                          gemm_14   |                                       Nonlinearity_[o][16]           
+------ ------------------------------------------------ ---------------------- --------------- --------- -------------------------------- --- ------------------ ------------------ ------------------------------ 
+model/c-model: macc=1,488,048/1,488,048  weights=30,352/111,760 +81,408(+268.2%) activations=--/42,468 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : v7_v3_48_conv2d_model
+c-name                : materials_model
+c-node #              : 17
+c-array #             : 37
+activations size      : 42468 (1 segment)
+weights size          : 111760 (1 segment)
+macc                  : 1488048
+inputs                : ['serving_default_input_10_output']
+outputs               : ['nl_15_output']
+
+C-Arrays (37)
+------ --------------------------------- ------------- ------------------------- ------------- --------- 
+c_id   name (*_array)                    item/size     domain/mem-pool           c-type        comment   
+------ --------------------------------- ------------- ------------------------- ------------- --------- 
+0      conv2d_0_bias                     16/64         weights/weights           const float             
+1      conv2d_0_output                   9984/39936    activations/**default**   float                   
+2      conv2d_0_scratch0                 9/36          activations/**default**   float                   
+3      conv2d_0_weights                  144/576       weights/weights           const float             
+4      conv2d_4_bias                     32/128        weights/weights           const float             
+5      conv2d_4_output                   4608/18432    activations/**default**   float                   
+6      conv2d_4_scratch0                 144/576       activations/**default**   float                   
+7      conv2d_4_weights                  4608/18432    weights/weights           const float             
+8      conv2d_8_bias                     64/256        weights/weights           const float             
+9      conv2d_8_output                   2304/9216     activations/**default**   float                   
+10     conv2d_8_scratch0                 288/1152      activations/**default**   float                   
+11     conv2d_8_weights                  18432/73728   weights/weights           const float             
+12     eltwise_1_bias                    16/64         weights/weights           const float             
+13     eltwise_1_output                  9984/39936    activations/**default**   float                   
+14     eltwise_1_scale                   16/64         weights/weights           const float             
+15     eltwise_5_bias                    32/128        weights/weights           const float             
+16     eltwise_5_output                  4608/18432    activations/**default**   float                   
+17     eltwise_5_scale                   32/128        weights/weights           const float             
+18     eltwise_9_bias                    64/256        weights/weights           const float             
+19     eltwise_9_output                  2304/9216     activations/**default**   float                   
+20     eltwise_9_scale                   64/256        weights/weights           const float             
+21     gemm_13_bias                      64/256        weights/weights           const float             
+22     gemm_13_output                    64/256        activations/**default**   float                   
+23     gemm_13_weights                   4096/16384    weights/weights           const float             
+24     gemm_14_bias                      4/16          weights/weights           const float             
+25     gemm_14_output                    4/16          activations/**default**   float                   
+26     gemm_14_weights                   256/1024      weights/weights           const float             
+27     nl_0_nl_output                    9984/39936    activations/**default**   float                   
+28     nl_13_nl_output                   64/256        activations/**default**   float                   
+29     nl_15_output                      4/16          activations/**default**   float         /output   
+30     nl_4_nl_output                    4608/18432    activations/**default**   float                   
+31     nl_8_nl_output                    2304/9216     activations/**default**   float                   
+32     pool_11_output                    384/1536      activations/**default**   float                   
+33     pool_12_output                    64/256        activations/**default**   float                   
+34     pool_3_output                     2304/9216     activations/**default**   float                   
+35     pool_7_output                     1152/4608     activations/**default**   float                   
+36     serving_default_input_10_output   624/2496      activations/**default**   float         /input    
+------ --------------------------------- ------------- ------------------------- ------------- --------- 
+
+C-Layers (17)
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+c_id   name (*_layer)   id   layer_type      macc     rom     tensors                              shape (array id)       
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+0      conv2d_0         0    Conv2D          89872    640     I: serving_default_input_10_output   f32(1x48x13x1) (36)    
+                                                              S: conv2d_0_scratch0                                        
+                                                              W: conv2d_0_weights                  f32(16x3x3x1) (3)      
+                                                              W: conv2d_0_bias                     f32(16) (0)            
+                                                              O: conv2d_0_output                   f32(1x48x13x16) (1)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+1      nl_0_nl          0    Nonlinearity    9984     0       I: conv2d_0_output                   f32(1x48x13x16) (1)    
+                                                              O: nl_0_nl_output                    f32(1x48x13x16) (27)   
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+2      eltwise_1        2    ScaleBias       19968    128     I: nl_0_nl_output                    f32(1x48x13x16) (27)   
+                                                              W: eltwise_1_scale                   f32(16) (14)           
+                                                              W: eltwise_1_bias                    f32(16) (12)           
+                                                              O: eltwise_1_output                  f32(1x48x13x16) (13)   
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+3      pool_3           3    Pool            9216     0       I: eltwise_1_output                  f32(1x48x13x16) (13)   
+                                                              O: pool_3_output                     f32(1x24x6x16) (34)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+4      conv2d_4         4    Conv2D          663584   18560   I: pool_3_output                     f32(1x24x6x16) (34)    
+                                                              S: conv2d_4_scratch0                                        
+                                                              W: conv2d_4_weights                  f32(32x3x3x16) (7)     
+                                                              W: conv2d_4_bias                     f32(32) (4)            
+                                                              O: conv2d_4_output                   f32(1x24x6x32) (5)     
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+5      nl_4_nl          4    Nonlinearity    4608     0       I: conv2d_4_output                   f32(1x24x6x32) (5)     
+                                                              O: nl_4_nl_output                    f32(1x24x6x32) (30)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+6      eltwise_5        6    ScaleBias       9216     256     I: nl_4_nl_output                    f32(1x24x6x32) (30)    
+                                                              W: eltwise_5_scale                   f32(32) (17)           
+                                                              W: eltwise_5_bias                    f32(32) (15)           
+                                                              O: eltwise_5_output                  f32(1x24x6x32) (16)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+7      pool_7           7    Pool            4608     0       I: eltwise_5_output                  f32(1x24x6x32) (16)    
+                                                              O: pool_7_output                     f32(1x12x3x32) (35)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+8      conv2d_8         8    Conv2D          663616   73984   I: pool_7_output                     f32(1x12x3x32) (35)    
+                                                              S: conv2d_8_scratch0                                        
+                                                              W: conv2d_8_weights                  f32(64x3x3x32) (11)    
+                                                              W: conv2d_8_bias                     f32(64) (8)            
+                                                              O: conv2d_8_output                   f32(1x12x3x64) (9)     
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+9      nl_8_nl          8    Nonlinearity    2304     0       I: conv2d_8_output                   f32(1x12x3x64) (9)     
+                                                              O: nl_8_nl_output                    f32(1x12x3x64) (31)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+10     eltwise_9        10   ScaleBias       4608     512     I: nl_8_nl_output                    f32(1x12x3x64) (31)    
+                                                              W: eltwise_9_scale                   f32(64) (20)           
+                                                              W: eltwise_9_bias                    f32(64) (18)           
+                                                              O: eltwise_9_output                  f32(1x12x3x64) (19)    
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+11     pool_11          11   Pool            1536     0       I: eltwise_9_output                  f32(1x12x3x64) (19)    
+                                                              O: pool_11_output                    f32(1x6x1x64) (32)     
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+12     pool_12          12   Pool            384      0       I: pool_11_output                    f32(1x6x1x64) (32)     
+                                                              O: pool_12_output                    f32(1x1x1x64) (33)     
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+13     gemm_13          13   Dense           4160     16640   I: pool_12_output                    f32(1x1x1x64) (33)     
+                                                              W: gemm_13_weights                   f32(64x64) (23)        
+                                                              W: gemm_13_bias                      f32(64) (21)           
+                                                              O: gemm_13_output                    f32(1x64) (22)         
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+14     nl_13_nl         13   Nonlinearity    64       0       I: gemm_13_output                    f32(1x64) (22)         
+                                                              O: nl_13_nl_output                   f32(1x64) (28)         
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+15     gemm_14          14   Dense           260      1040    I: nl_13_nl_output                   f32(1x64) (28)         
+                                                              W: gemm_14_weights                   f32(4x64) (26)         
+                                                              W: gemm_14_bias                      f32(4) (24)            
+                                                              O: gemm_14_output                    f32(1x4) (25)          
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+16     nl_15            15   Nonlinearity    60       0       I: gemm_14_output                    f32(1x4) (25)          
+                                                              O: nl_15_output                      f32(1x4) (29)          
+------ ---------------- ---- --------------- -------- ------- ------------------------------------ ---------------------- 
+
+
+
+Number of operations per c-layer
+------- ------ ------------------------- ----------- -------------- 
+c_id    m_id   name (type)                       #op           type 
+------- ------ ------------------------- ----------- -------------- 
+0       0      conv2d_0 (Conv2D)              89,872   smul_f32_f32 
+1       0      nl_0_nl (Nonlinearity)          9,984     op_f32_f32 
+2       2      eltwise_1 (ScaleBias)          19,968   smul_f32_f32 
+3       3      pool_3 (Pool)                   9,216   smul_f32_f32 
+4       4      conv2d_4 (Conv2D)             663,584   smul_f32_f32 
+5       4      nl_4_nl (Nonlinearity)          4,608     op_f32_f32 
+6       6      eltwise_5 (ScaleBias)           9,216   smul_f32_f32 
+7       7      pool_7 (Pool)                   4,608   smul_f32_f32 
+8       8      conv2d_8 (Conv2D)             663,616   smul_f32_f32 
+9       8      nl_8_nl (Nonlinearity)          2,304     op_f32_f32 
+10      10     eltwise_9 (ScaleBias)           4,608   smul_f32_f32 
+11      11     pool_11 (Pool)                  1,536   smul_f32_f32 
+12      12     pool_12 (Pool)                    384   smul_f32_f32 
+13      13     gemm_13 (Dense)                 4,160   smul_f32_f32 
+14      13     nl_13_nl (Nonlinearity)            64     op_f32_f32 
+15      14     gemm_14 (Dense)                   260   smul_f32_f32 
+16      15     nl_15 (Nonlinearity)               60     op_f32_f32 
+------- ------ ------------------------- ----------- -------------- 
+total                                      1,488,048 
+
+Number of operation types
+---------------- ----------- ----------- 
+operation type             #           % 
+---------------- ----------- ----------- 
+smul_f32_f32       1,471,028       98.9% 
+op_f32_f32            17,020        1.1% 
+
+Complexity report (model)
+------ ------------------------------------------ ------------------------- ------------------------- ---------- 
+m_id   name                                       c_macc                    c_rom                     c_id       
+------ ------------------------------------------ ------------------------- ------------------------- ---------- 
+0      serving_default_input_10                   |||                6.7%   |                  0.6%   [0, 1]     
+2      sequential_batch_normalizati..atchNormV3   |                  1.3%   |                  0.1%   [2]        
+3      pool_3                                     |                  0.6%   |                  0.0%   [3]        
+4      conv2d_4                                   ||||||||||||||||  44.9%   ||||              16.6%   [4, 5]     
+6      sequential_batch_normalizati..atchNormV3   |                  0.6%   |                  0.2%   [6]        
+7      pool_7                                     |                  0.3%   |                  0.0%   [7]        
+8      conv2d_8                                   |||||||||||||||   44.8%   ||||||||||||||||  66.2%   [8, 9]     
+10     sequential_batch_normalizati..atchNormV3   |                  0.3%   |                  0.5%   [10]       
+11     pool_11                                    |                  0.1%   |                  0.0%   [11]       
+12     pool_12                                    |                  0.0%   |                  0.0%   [12]       
+13     sequential_dense_MatMul                    |                  0.3%   ||||              14.9%   [13, 14]   
+14     sequential_dense_1_MatMul                  |                  0.0%   |                  0.9%   [15]       
+15     nl_15                                      |                  0.0%   |                  0.0%   [16]       
+------ ------------------------------------------ ------------------------- ------------------------- ---------- 
+macc=1,488,048 weights=111,760 act=42,468 ram_io=0
+ 
+ Requested memory size by section - "stm32h7" target
+ ------------------------------ -------- --------- ------- -------- 
+ module                             text    rodata    data      bss 
+ ------------------------------ -------- --------- ------- -------- 
+ NetworkRuntime1000_CM7_GCC.a     10,672         0       0        0 
+ materials_model.o                   948       136   4,864      268 
+ materials_model_data.o               48        16      88        0 
+ lib (toolchain)*                    318       328       0        0 
+ ------------------------------ -------- --------- ------- -------- 
+ RT total**                       11,986       480   4,952      268 
+ ------------------------------ -------- --------- ------- -------- 
+ weights                               0   111,760       0        0 
+ activations                           0         0       0   42,468 
+ io                                    0         0       0        0 
+ ------------------------------ -------- --------- ------- -------- 
+ TOTAL                            11,986   112,240   4,952   42,736 
+ ------------------------------ -------- --------- ------- -------- 
+ *  toolchain objects (libm/libgcc*)
+ ** RT AI runtime objects (kernels+infrastructure)
+  
+  Summary - "stm32h7" target
+  ---------------------------------------------------
+               FLASH (ro)      %*   RAM (rw)       % 
+  ---------------------------------------------------
+  RT total         17,418   13.5%      5,220   10.9% 
+  ---------------------------------------------------
+  TOTAL           129,178             47,688         
+  ---------------------------------------------------
+  *  rt/total
+
+
+Generated files (7)
+----------------------------------------------------------------------------- 
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data_params.h   
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data_params.c   
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data.h          
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data.c          
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model_config.h        
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model.h               
+C:\Users\lapchong\.stm32cubemx\network_output\materials_model.c               
