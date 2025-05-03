@@ -97,16 +97,24 @@ void tud_umount_cb(void) {
   //Do nothing for now
 }
 
+uint32_t last_exti_time = 0;
+volatile uint8_t recording_lock = 0;
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     if (GPIO_Pin == GPIO_PIN_3) {
-    	my_printf("hello from exti\r\n");
-    	if (recording_state == READY)
-    	{
-    		recording_state = DO_RECORDING;
-    	} else {
-    		my_printf("not ready for recording\r\n");
-    	}
+        if (recording_lock) return; // ignore if still locked
+        uint32_t now = HAL_GetTick();
+        if (now - last_exti_time < 1100) return; // still within timeout
+        last_exti_time = now;
+
+        if (recording_state == READY) {
+            recording_lock = 1;  // set lock
+            recording_state = DO_RECORDING;
+            my_printf("recording trigger accepted\r\n");
+        } else {
+            my_printf("not ready for recording\r\n");
+        }
     }
 }
 
@@ -207,6 +215,7 @@ int main(void)
 		st7920_print(1, 25, tx_buffer);
 		st7920_sendBuffer();
 		recording_state = READY;
+		recording_lock = 0; // allow next EXTI
 	  }
 	  /*
 	  tud_task();

@@ -107,7 +107,7 @@ void list_directory(const char *path, uint8_t depth) {
 }
 
 #define SAMPLING_RATE   16000  // 48 kHz
-#define PERIOD          2       // 5-second recording
+#define PERIOD          1       // 5-second recording
 #define BUFFER_SIZE     16384 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
 #define GAIN            5
 
