@@ -31,7 +31,9 @@
 #include "arm_math.h"
 #include "arm_const_structs.h"
 #include "tusb.h"
-#include "nnom-master/inc/nnom.h"
+//#include "nnom-master/inc/nnom.h"
+#include "nnom.h"
+#include "weights.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -173,6 +175,13 @@ int main(void)
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
   DWT->CYCCNT = 0;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+
+  nnom_model_t *model;
+
+  model = nnom_model_create();
+  model_run(model);
+
+  while(1);
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
