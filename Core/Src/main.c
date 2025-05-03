@@ -31,9 +31,11 @@
 #include "arm_math.h"
 #include "arm_const_structs.h"
 #include "tusb.h"
-//#include "nnom-master/inc/nnom.h"
 #include "nnom.h"
 #include "weights.h"
+#include "nn_process.h"
+#include "mfcc_q15.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -184,7 +186,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
-  HAL_Delay(1000);
+  HAL_Delay(500);
+  //flush_buffer();
 
   mfcc_q15_init();
 
@@ -234,6 +237,7 @@ int main(void)
 		st7920_print(1, 25, tx_buffer);
 		st7920_sendBuffer();
 		print_mfcc_frame_final(mfcc_frame_final);
+		process_mfcc_example(mfcc_frame_final);
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }

@@ -8,6 +8,7 @@
 #include "fatfs.h"
 #include "arm_math.h"
 
+void flush_buffer();
 void sd_init();
 int get_next_audio_filename();
 void list_directory(const char *path, uint8_t depth);
