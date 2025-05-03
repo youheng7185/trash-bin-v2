@@ -107,7 +107,7 @@ void list_directory(const char *path, uint8_t depth) {
 }
 
 #define SAMPLING_RATE   16000  // 48 kHz
-#define PERIOD          1       // 5-second recording
+#define PERIOD          2       // 5-second recording
 #define BUFFER_SIZE     16384 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
 #define GAIN            5
 
@@ -116,7 +116,7 @@ volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
 int16_t left_pcm_buffer[BUFFER_SIZE / 4];
 q15_t q15_buffer[BUFFER_SIZE / 4];
-q15_t mfcc_frame_final[48 * 13] = {0};
+q15_t mfcc_frame_final[624] = {0};
 uint32_t mfcc_frame_pointer = 0;
 uint8_t mfcc_final_filled = 0;
 
@@ -216,21 +216,7 @@ void start_audio_recording() {
                 {
                 	convert_mfcc(&left_pcm_buffer[i * 512]);
                 	f_write(&file_mfcc, mfcc_output, 13 * sizeof(q15_t), &bytes_written_mfcc);
-                	// fixme unknown error, why after 13 is empty, so lets record until 13
-
-                    if (!mfcc_final_filled)
-                    {
-                    	uint32_t  remaining = (48*13) - mfcc_frame_pointer;
-                    	uint32_t  to_copy = (remaining >= 13) ? 13 : remaining;
-
-                        memcpy(&mfcc_frame_final[mfcc_frame_pointer], mfcc_output, to_copy * sizeof(q15_t));
-                        mfcc_frame_pointer += to_copy;
-
-                        if (mfcc_frame_pointer >= 48*13)
-                        {
-                            mfcc_final_filled = 1;  // stop future copies
-                        }
-                    }
+                	add_mfcc_frame(mfcc_output);
                 }
 
                 buffer_ready = 0;
@@ -258,6 +244,17 @@ void start_audio_recording() {
     }
 }
 
+#define MFCC_FRAMES     48
+#define MFCC_DIM        13
+#define MFCC_TOTAL_SIZE (MFCC_FRAMES * MFCC_DIM)
+
+void add_mfcc_frame(const q15_t *mfcc_output) {
+    if (mfcc_frame_pointer < MFCC_FRAMES) {
+        memcpy(&mfcc_frame_final[mfcc_frame_pointer * MFCC_DIM], mfcc_output, MFCC_DIM * sizeof(q15_t));
+        mfcc_frame_pointer++;
+    }
+}
+
 int record_and_convert()
 {
 	int num = get_next_audio_filename();
@@ -267,7 +264,7 @@ int record_and_convert()
 
 void print_mfcc_frame_final(q15_t *array) {
     printf("First 4 MFCC Coefficients (hex):\n");
-    for (uint32_t i = 500; i < 550; i++) {
+    for (uint32_t i = 0; i < 624; i++) {
         printf("[%d] = 0x%04X\n", i, (uint16_t)(array[i] & 0xFFFF));
     }
 }

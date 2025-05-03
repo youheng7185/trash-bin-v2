@@ -86,10 +86,10 @@ void process_mfcc_example(q15_t* mfcc_features)
     quantize_mfcc_for_nnom(mfcc_features, quantized_mfcc, mfcc_length);
 
     printf("print quantized val:\r\n");
-    for (int i = 500; i < 550; i++)
-    {
-    	printf("[%d] = %d\r\n", i, quantized_mfcc[i]);
-    }
+//    for (int i = 500; i < 550; i++)
+//    {
+//    	printf("[%d] = %d\r\n", i, quantized_mfcc[i]);
+//    }
 
     copy_mfcc_to_nnom_input(quantized_mfcc);
 
