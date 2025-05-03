@@ -6,6 +6,16 @@
 #include "nn_process.h"
 #include "mic.h"
 #include "mfcc_q15.h"
+#include "weights.h"
+#include "nnom.h"
+
+nnom_model_t *model;
+
+void nnom_init()
+{
+	model = nnom_model_create();
+	model_run(model);
+}
 
 /**
  * @brief Quantizes MFCC data to the format required by the NNoM model
@@ -57,6 +67,13 @@ void quantize_mfcc_for_nnom(q15_t* mfcc_data, q7_t* quantized_output, uint32_t l
 /**
  * @brief Example usage of the quantization function
  */
+
+void copy_mfcc_to_nnom_input(q7_t* quantized_mfcc)
+{
+    // Simply copy the 48 values to the nnom_input_data array
+    memcpy(nnom_input_data, quantized_mfcc, 48 * sizeof(q7_t));
+}
+
 void process_mfcc_example(q15_t* mfcc_features)
 {
     // Assuming 48 MFCC coefficients
@@ -73,7 +90,13 @@ void process_mfcc_example(q15_t* mfcc_features)
     {
     	printf("[%d] = %d\r\n", i, quantized_mfcc[i]);
     }
-    // Now quantized_mfcc can be used as input to your NNoM model
-    // For example:
-    // nnom_status_t predict_result = model_run(model, quantized_mfcc);
+
+    copy_mfcc_to_nnom_input(quantized_mfcc);
+
+    nnom_status_t predict_result = model_run(model);
+
+    printf("heres result:\r\n");
+    for (uint8_t i = 0; i < 4; i++) {
+    	printf("output [%d]: %d\r\n", i, nnom_output_data[i]);
+    }
 }

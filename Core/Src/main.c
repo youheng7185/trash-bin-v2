@@ -31,8 +31,7 @@
 #include "arm_math.h"
 #include "arm_const_structs.h"
 #include "tusb.h"
-#include "nnom.h"
-#include "weights.h"
+//#include "nnom.h"
 #include "nn_process.h"
 #include "mfcc_q15.h"
 
@@ -178,10 +177,7 @@ int main(void)
   DWT->CYCCNT = 0;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 
-  nnom_model_t *model;
-
-  model = nnom_model_create();
-  model_run(model);
+  nnom_init();
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);

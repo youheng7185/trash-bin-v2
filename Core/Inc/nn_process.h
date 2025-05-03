@@ -10,6 +10,7 @@
 
 #include "arm_math.h"
 
+void nnom_init();
 void process_mfcc_example(q15_t* mfcc_features);
 
 #endif /* INC_NN_PROCESS_H_ */
