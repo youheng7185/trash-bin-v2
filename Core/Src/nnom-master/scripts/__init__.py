@@ -1,5 +1,0 @@
-
-# package
-
-from .nnom import *
-
