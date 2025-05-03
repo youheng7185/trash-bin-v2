@@ -16,9 +16,11 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s);
 void write_wav_header(FIL *file, uint32_t data_size);
 void start_audio_recording();
 int record_and_convert();
+void print_mfcc_frame_final(q15_t *array);
 
 extern char latest_audio_filename[32];
 extern FIL file;
+extern q15_t mfcc_frame_final[48];
 
 typedef enum {
 	NOT_READY,

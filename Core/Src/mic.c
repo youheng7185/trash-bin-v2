@@ -116,7 +116,9 @@ volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
 int16_t left_pcm_buffer[BUFFER_SIZE / 4];
 q15_t q15_buffer[BUFFER_SIZE / 4];
-
+q15_t mfcc_frame_final[48] = {0};
+uint16_t mfcc_frame_pointer = 0;
+uint8_t mfcc_final_filled = 0;
 // Callback when half buffer is filled
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
     buffer_ready = 1;
@@ -202,6 +204,20 @@ void start_audio_recording() {
                 	convert_mfcc(&left_pcm_buffer[i * 512]);
                 	f_write(&file_mfcc, mfcc_output, 13 * sizeof(q15_t), &bytes_written_mfcc);
                 	// fixme unknown error, why after 13 is empty, so lets record until 13
+
+                    if (!mfcc_final_filled)
+                    {
+                        uint8_t remaining = 48 - mfcc_frame_pointer;
+                        uint8_t to_copy = (remaining >= 13) ? 13 : remaining;
+
+                        memcpy(&mfcc_frame_final[mfcc_frame_pointer], mfcc_output, to_copy * sizeof(q15_t));
+                        mfcc_frame_pointer += to_copy;
+
+                        if (mfcc_frame_pointer >= 48)
+                        {
+                            mfcc_final_filled = 1;  // stop future copies
+                        }
+                    }
                 }
 
                 buffer_ready = 0;
@@ -210,6 +226,8 @@ void start_audio_recording() {
 
         // Stop DMA
         HAL_I2S_DMAStop(&hi2s1);
+        mfcc_frame_pointer = 0;
+        mfcc_final_filled = 0;
 
         // Update WAV header with actual data size
         f_lseek(&file, 0);
@@ -233,3 +251,11 @@ int record_and_convert()
 	start_audio_recording();
 	return num;
 }
+
+void print_mfcc_frame_final(q15_t *array) {
+    printf("First 4 MFCC Coefficients (hex):\n");
+    for (uint8_t i = 0; i < 48; i++) {
+        printf("[%d] = 0x%04X\n", i, (uint16_t)(array[i] & 0xFFFF));
+    }
+}
+

@@ -181,8 +181,6 @@ int main(void)
   model = nnom_model_create();
   model_run(model);
 
-  while(1);
-
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
@@ -235,6 +233,7 @@ int main(void)
 		sprintf(tx_buffer, "record saved to %d", num_of_file);
 		st7920_print(1, 25, tx_buffer);
 		st7920_sendBuffer();
+		print_mfcc_frame_final(mfcc_frame_final);
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }
