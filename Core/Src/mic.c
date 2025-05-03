@@ -264,7 +264,7 @@ int record_and_convert()
 
 void print_mfcc_frame_final(q15_t *array) {
     printf("First 4 MFCC Coefficients (hex):\n");
-    for (uint32_t i = 0; i < 624; i++) {
+    for (uint32_t i = 500; i < 520; i++) {
         printf("[%d] = 0x%04X\n", i, (uint16_t)(array[i] & 0xFFFF));
     }
 }

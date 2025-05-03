@@ -12,5 +12,6 @@
 
 void nnom_init();
 void process_mfcc_example(q15_t* mfcc_features);
+void test_nnom();
 
 #endif /* INC_NN_PROCESS_H_ */
