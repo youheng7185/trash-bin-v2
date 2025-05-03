@@ -116,8 +116,8 @@ volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
 int16_t left_pcm_buffer[BUFFER_SIZE / 4];
 q15_t q15_buffer[BUFFER_SIZE / 4];
-q15_t mfcc_frame_final[48] = {0};
-uint16_t mfcc_frame_pointer = 0;
+q15_t mfcc_frame_final[48 * 13] = {0};
+uint32_t mfcc_frame_pointer = 0;
 uint8_t mfcc_final_filled = 0;
 
 void flush_buffer()
@@ -220,13 +220,13 @@ void start_audio_recording() {
 
                     if (!mfcc_final_filled)
                     {
-                        uint8_t remaining = 48 - mfcc_frame_pointer;
-                        uint8_t to_copy = (remaining >= 13) ? 13 : remaining;
+                    	uint32_t  remaining = (48*13) - mfcc_frame_pointer;
+                    	uint32_t  to_copy = (remaining >= 13) ? 13 : remaining;
 
                         memcpy(&mfcc_frame_final[mfcc_frame_pointer], mfcc_output, to_copy * sizeof(q15_t));
                         mfcc_frame_pointer += to_copy;
 
-                        if (mfcc_frame_pointer >= 48)
+                        if (mfcc_frame_pointer >= 48*13)
                         {
                             mfcc_final_filled = 1;  // stop future copies
                         }
@@ -267,7 +267,7 @@ int record_and_convert()
 
 void print_mfcc_frame_final(q15_t *array) {
     printf("First 4 MFCC Coefficients (hex):\n");
-    for (uint8_t i = 0; i < 48; i++) {
+    for (uint32_t i = 500; i < 550; i++) {
         printf("[%d] = 0x%04X\n", i, (uint16_t)(array[i] & 0xFFFF));
     }
 }

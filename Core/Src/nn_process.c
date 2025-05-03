@@ -71,13 +71,13 @@ void quantize_mfcc_for_nnom(q15_t* mfcc_data, q7_t* quantized_output, uint32_t l
 void copy_mfcc_to_nnom_input(q7_t* quantized_mfcc)
 {
     // Simply copy the 48 values to the nnom_input_data array
-    memcpy(nnom_input_data, quantized_mfcc, 48 * sizeof(q7_t));
+    memcpy(nnom_input_data, quantized_mfcc, 624 * sizeof(q7_t));
 }
 
 void process_mfcc_example(q15_t* mfcc_features)
 {
     // Assuming 48 MFCC coefficients
-    const uint32_t mfcc_length = 48;
+    const uint32_t mfcc_length = 624;
 
     // Allocate memory for quantized output
     q7_t quantized_mfcc[mfcc_length];
@@ -86,7 +86,7 @@ void process_mfcc_example(q15_t* mfcc_features)
     quantize_mfcc_for_nnom(mfcc_features, quantized_mfcc, mfcc_length);
 
     printf("print quantized val:\r\n");
-    for (int i = 0; i < mfcc_length; i++)
+    for (int i = 500; i < 550; i++)
     {
     	printf("[%d] = %d\r\n", i, quantized_mfcc[i]);
     }

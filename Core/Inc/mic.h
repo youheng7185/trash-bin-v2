@@ -21,7 +21,7 @@ void print_mfcc_frame_final(q15_t *array);
 
 extern char latest_audio_filename[32];
 extern FIL file;
-extern q15_t mfcc_frame_final[48];
+extern q15_t mfcc_frame_final[48 * 13];
 
 typedef enum {
 	NOT_READY,
