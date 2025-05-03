@@ -1098,44 +1098,44 @@
   ],
   "environment": {
     "generated_model": {
-      "generated_time": "2025-05-03T21:42:57+0800",
+      "generated_time": "2025-05-03T21:56:29+0800",
       "model_files": [
         {
           "name": "materials_model_data_params.h",
-          "signature": "0x155d39e031ac4cd4aad7cc869b918156"
+          "signature": "0x99a6c3b2dae068d829fd98dd435f8f68"
         },
         {
           "name": "materials_model_data_params.c",
-          "signature": "0x0013a72ab75f2a0995ea7ed1bb80ddb6"
+          "signature": "0x2bb106892811d296f6170642a5354456"
         },
         {
           "name": "materials_model_data.h",
-          "signature": "0x03c222c2ad131734f7b654c036a434de"
+          "signature": "0x07f77a2d5085e2457d0434abced7c816"
         },
         {
           "name": "materials_model_data.c",
-          "signature": "0xf4ad6184d2df65fc13a1118b9147783a"
+          "signature": "0x2e9421339a104cb12a949bf15f58ccf4"
         },
         {
           "name": "materials_model_config.h",
-          "signature": "0xe64b2f44ff4c27c6c0d92afcebc01bbe"
+          "signature": "0x39f224e7834c6e9def48c4c36541a605"
         },
         {
           "name": "materials_model.h",
-          "signature": "0x41e5189dc491e7d03758ce68869aaebd"
+          "signature": "0x83aa240df6211b10cc994c73c1b2cc73"
         },
         {
           "name": "materials_model.c",
-          "signature": "0x29fae463f79472e09d3c29101704fc4c"
+          "signature": "0xf3dc541e452a3c8daadab18341a1e6e4"
         }
       ],
       "name": "materials_model"
     },
-    "network_signature": "0x07df1b2be5d9b58d",
+    "network_signature": "0x6863d8e2ac63956e",
     "test_name": "",
     "tools": [
       {
-        "arguments": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace4413689418136009067146519305911421 --output C:/Users/lapchong/.stm32cubemx/network_output",
+        "arguments": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace4421807745751003527379485153487950 --output C:/Users/lapchong/.stm32cubemx/network_output",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],

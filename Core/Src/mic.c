@@ -269,3 +269,4 @@ void print_mfcc_frame_final(q15_t *array) {
     }
 }
 
+float mfcc_float[624] = {0};

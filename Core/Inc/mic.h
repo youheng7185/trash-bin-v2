@@ -23,6 +23,7 @@ void add_mfcc_frame(const q15_t *mfcc_output);
 extern char latest_audio_filename[32];
 extern FIL file;
 extern q15_t mfcc_frame_final[48 * 13];
+extern float mfcc_float[624];
 
 typedef enum {
 	NOT_READY,

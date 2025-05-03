@@ -8,6 +8,26 @@
 #ifndef INC_NN_PROCESS_H_
 #define INC_NN_PROCESS_H_
 
-#include "arm_math.h"
+#include <stdint.h>
+
+/**
+ * @brief Initialize the neural network
+ * @return 0 if successful, negative error code otherwise
+ */
+int aiInit(void);
+
+/**
+ * @brief Run inference with the neural network
+ * @param mfcc_q15_data Pointer to Q15-formatted MFCC data (624 elements)
+ * @param output_data Pointer to store the output classification results (4 elements)
+ * @return 0 if successful, negative error code otherwise
+ */
+int aiRun(const int16_t* mfcc_q15_data, float* output_data);
+
+/**
+ * @brief Deinitialize the neural network and free resources
+ */
+void aiDeinit(void);
+void inference_test();
 
 #endif /* INC_NN_PROCESS_H_ */
