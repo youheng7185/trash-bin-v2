@@ -120,20 +120,6 @@ q15_t mfcc_frame_final[624] = {0};
 uint32_t mfcc_frame_pointer = 0;
 uint8_t mfcc_final_filled = 0;
 
-void flush_buffer()
-{
-	HAL_StatusTypeDef status;
-	printf("flush begin\r\n");
-
-	status = HAL_I2S_Receive(&hi2s1, i2s_data, 8192, HAL_MAX_DELAY);
-
-    if (status == HAL_OK) {
-        printf("I2S buffer flush completed successfully\r\n");
-    } else {
-        printf("I2S buffer flush failed with status: %d\r\n", status);
-    }
-}
-
 // Callback when half buffer is filled
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
     buffer_ready = 1;
