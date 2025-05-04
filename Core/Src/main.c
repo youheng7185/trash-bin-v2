@@ -30,7 +30,6 @@
 #include "vl53l0x.h"
 #include "arm_math.h"
 #include "arm_const_structs.h"
-#include "tusb.h"
 //#include "nnom.h"
 #include "nn_process.h"
 #include "mfcc_q15.h"
@@ -96,15 +95,6 @@ int _write(int file, char *data, int len)
 {
   HAL_UART_Transmit(&hlpuart1, (uint8_t *)data, len, HAL_MAX_DELAY);
   return len;
-}
-
-void tud_mount_cb(void) {
-  //Do nothing for now
-}
-
-// Invoked when device is unmounted
-void tud_umount_cb(void) {
-  //Do nothing for now
 }
 
 uint32_t last_exti_time = 0;
@@ -218,9 +208,6 @@ int main(void)
   servo360_init();
   set_servo_speed(150);
 
-  //list_directory("", 0);
-  tud_init(BOARD_TUD_RHPORT);
-
   aiInit();
 
   /* USER CODE END 2 */
@@ -245,10 +232,6 @@ int main(void)
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }
-	  /*
-	  tud_task();
-	  HAL_Delay(100);
-	  */
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
