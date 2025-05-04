@@ -24,10 +24,4 @@ int aiInit(void);
  */
 int aiRun(const int16_t* mfcc_q15_data, float* output_data);
 
-/**
- * @brief Deinitialize the neural network and free resources
- */
-void aiDeinit(void);
-void inference_test();
-
 #endif /* INC_NN_PROCESS_H_ */

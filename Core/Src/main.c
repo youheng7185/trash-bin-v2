@@ -221,6 +221,8 @@ int main(void)
   //list_directory("", 0);
   tud_init(BOARD_TUD_RHPORT);
 
+  aiInit();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -239,7 +241,7 @@ int main(void)
 		st7920_print(1, 25, tx_buffer);
 		st7920_sendBuffer();
 		print_mfcc_frame_final(mfcc_frame_final);
-		inference_test();
+		do_inference();
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }
