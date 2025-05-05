@@ -170,11 +170,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   my_printf("test print\r\n");
 
-  // Enable DWT for cycle counting
-  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-  DWT->CYCCNT = 0;
-  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
@@ -209,6 +204,7 @@ int main(void)
   set_servo_speed(150);
 
   aiInit();
+  test_ai_correctness();
 
   /* USER CODE END 2 */
 
