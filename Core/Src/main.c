@@ -206,6 +206,9 @@ int main(void)
   aiInit();
   test_ai_correctness();
 
+  my_printf("finish setup\r\n");
+  st7920_print(1, 17, "waiting for exti");
+  st7920_sendBuffer();
   /* USER CODE END 2 */
 
   /* Infinite loop */

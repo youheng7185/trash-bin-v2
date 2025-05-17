@@ -122,11 +122,13 @@ uint8_t mfcc_final_filled = 0;
 
 // Callback when half buffer is filled
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
+	SCB_InvalidateDCache_by_Addr((uint32_t*)i2s_data, BUFFER_SIZE);
     buffer_ready = 1;
 }
 
 // Callback when full buffer is filled
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s) {
+	SCB_InvalidateDCache_by_Addr((uint32_t*)&i2s_data[BUFFER_SIZE / 2], BUFFER_SIZE);
     buffer_ready = 2;
 }
 
@@ -177,6 +179,7 @@ void start_audio_recording() {
         }
 
         // Start I2S DMA
+        SCB_CleanDCache_by_Addr((uint32_t*)i2s_data, sizeof(i2s_data));
         HAL_I2S_Receive_DMA(&hi2s1, (uint16_t *)i2s_data, BUFFER_SIZE);
 
         uint32_t total_samples = 0;
