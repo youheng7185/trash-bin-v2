@@ -228,6 +228,7 @@ int main(void)
 		st7920_sendBuffer();
 		print_mfcc_frame_final(mfcc_frame_final);
 		do_inference();
+		ai_show_result();
 		recording_state = READY;
 		recording_lock = 0; // allow next EXTI
 	  }

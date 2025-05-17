@@ -24,5 +24,6 @@ int aiInit(void);
  */
 int aiRun(const int16_t* mfcc_q15_data, float* output_data);
 void test_ai_correctness();
+void ai_show_result();
 
 #endif /* INC_NN_PROCESS_H_ */

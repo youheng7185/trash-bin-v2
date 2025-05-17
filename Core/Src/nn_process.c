@@ -6,6 +6,8 @@
 #include "nn_process.h"
 #include "mic.h"
 #include "mfcc_q15.h"
+#include "st7920.h"
+#include <string.h>
 
 #include "nn_process.h"
 #include "materials_model.h"
@@ -83,6 +85,34 @@ void do_inference()
 {
 	aiRun(&mfcc_frame_final[0], out_data);
 }
+
+const char *labels[] = {
+    "aluminium",  // index 0
+    "general",    // index 1
+    "paper",      // index 2
+    "plastic"     // index 3
+};
+
+void ai_show_result()
+{
+    float max = 0;
+    uint8_t max_index = 0;
+    for (uint8_t i = 0; i < 4; i++) {
+        if (out_data[i] > max)
+        {
+            max = out_data[i];
+            max_index = i;
+        }
+    }
+
+    st7920_print(1, 33, "result:");
+
+    char result_str[32];
+    snprintf(result_str, sizeof(result_str), "%s (%.2f)", labels[max_index], max);
+    st7920_print(1, 41, result_str);
+    st7920_sendBuffer();
+}
+
 
 // unit test
 
