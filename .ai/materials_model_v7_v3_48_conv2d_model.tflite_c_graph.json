@@ -117,7 +117,7 @@
         }
     },
     "activations_alignment": 4,
-    "arguments": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace432640573250010454615947191967718 --output C:/Users/lapchong/.stm32cubemx/network_output",
+    "arguments": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace71373599220002924550747998213196 --output C:/Users/lapchong/.stm32cubemx/network_output",
     "c_activations_count": 1,
     "c_arrays": [
         {
@@ -1631,7 +1631,7 @@
         ]
     },
     "data_alignment": 4,
-    "date_time": "2025-05-17T09:21:52+0800",
+    "date_time": "2025-05-17T10:08:42+0800",
     "inputs": [
         "serving_default_input_10_output"
     ],

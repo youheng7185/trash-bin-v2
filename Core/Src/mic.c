@@ -111,11 +111,20 @@ void list_directory(const char *path, uint8_t depth) {
 #define BUFFER_SIZE     16384 / 2 // Stereo buffer for 0.5 second, power of 2, just enough for windowing
 #define GAIN            5
 
-int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
+//__attribute__((section(".RAM_D2"))) int16_t i2s_data[BUFFER_SIZE];
+//__attribute__((section(".RAM_D2"))) int16_t left_pcm_buffer[BUFFER_SIZE / 4];
+//__attribute__((section(".RAM_D2"))) q15_t q15_buffer[BUFFER_SIZE /4];
+// Place buffer in RAM_D1 section
+int16_t i2s_data[BUFFER_SIZE] __attribute__((section(".ram_d1_buffers"))) __attribute__((aligned(4)));           // 16K
+int16_t left_pcm_buffer[BUFFER_SIZE / 4] __attribute__((section(".ram_d1_buffers"))) __attribute__((aligned(4)));  // 4K
+q15_t q15_buffer[BUFFER_SIZE / 4];         // 4K
+
+
+//int16_t i2s_data[BUFFER_SIZE];  // Single buffer (stereo)
 volatile uint8_t buffer_ready = 0;
 UINT bytes_written;
-int16_t left_pcm_buffer[BUFFER_SIZE / 4];
-q15_t q15_buffer[BUFFER_SIZE / 4];
+//int16_t left_pcm_buffer[BUFFER_SIZE / 4];
+//q15_t q15_buffer[BUFFER_SIZE / 4];
 q15_t mfcc_frame_final[624] = {0};
 uint32_t mfcc_frame_pointer = 0;
 uint8_t mfcc_final_filled = 0;
@@ -191,12 +200,15 @@ void start_audio_recording() {
         }
 
         // Start I2S DMA
+        SCB_CleanDCache_by_Addr((uint32_t*)i2s_data, sizeof(i2s_data));
         HAL_I2S_Receive_DMA(&hi2s1, (uint16_t *)i2s_data, BUFFER_SIZE);
 
         uint32_t total_samples = 0;
 
         while (total_samples < SAMPLING_RATE * PERIOD) {
             if (buffer_ready) {
+            	SCB_InvalidateDCache_by_Addr((uint32_t*)i2s_data, sizeof(i2s_data));
+
                 int16_t *start_ptr = (buffer_ready == 1) ? i2s_data : &i2s_data[BUFFER_SIZE / 2];
 
                 for (uint32_t i = 0; i < BUFFER_SIZE / 2; i += 2)

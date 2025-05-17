@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    materials_model_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    2025-05-17T09:21:52+0800
+  * @date    2025-05-17T10:08:42+0800
   * @brief   AI Tool Automatic Code Generator for Custom Layers Implementation
   ******************************************************************************
   * @attention

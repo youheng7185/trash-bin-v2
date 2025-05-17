@@ -1,7 +1,7 @@
 {
     "_allocate_inputs": 4,
     "_allocate_outputs": 4,
-    "cli_parameters": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace432640573250010454615947191967718 --output C:/Users/lapchong/.stm32cubemx/network_output",
+    "cli_parameters": "generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace71373599220002924550747998213196 --output C:/Users/lapchong/.stm32cubemx/network_output",
     "cli_version": {
         "extra": "20049",
         "major": 2,
@@ -11,7 +11,7 @@
     "cli_version_str": "2.0.0-20049",
     "code_size": 0,
     "compression": [],
-    "date_time": "2025-05-17T09:21:52+0800",
+    "date_time": "2025-05-17T10:08:42+0800",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",

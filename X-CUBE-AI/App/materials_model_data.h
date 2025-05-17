@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    materials_model_data.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    2025-05-17T09:21:52+0800
+  * @date    2025-05-17T10:08:42+0800
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * Copyright (c) 2025 STMicroelectronics.
