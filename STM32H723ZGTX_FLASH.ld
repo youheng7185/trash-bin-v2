@@ -37,8 +37,8 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x2000;      /* required amount of heap  */
-_Min_Stack_Size = 0x4000; /* required amount of stack */
+_Min_Heap_Size = 0x2000 ;      /* required amount of heap  */
+_Min_Stack_Size = 0x4000 ; /* required amount of stack */
 
 /* Specify the memory areas */
 MEMORY
@@ -137,7 +137,7 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >RAM_D1 AT> FLASH
+  } >DTCMRAM AT> FLASH
 
   /* Uninitialized data section */
   . = ALIGN(4);
@@ -153,7 +153,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >RAM_D1
+  } >DTCMRAM
 
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :

@@ -1,6 +1,6 @@
 ST Edge AI Core v2.0.0-20049
-Created date          : 2025-05-03 21:56:31
-Parameters            : generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace4421807745751003527379485153487950 --output C:/Users/lapchong/.stm32cubemx/network_output
+Created date          : 2025-05-23 21:21:56
+Parameters            : generate --target stm32h7 --name materials_model -m C:/Users/lapchong/Downloads/audio/useable/smart_waste_bin_data_samples/v7_v3_48_conv2d_model.tflite --compression none --verbosity 1 --workspace C:/Users/lapchong/AppData/Local/Temp/mxAI_workspace19210114195680015036354929926164634 --output C:/Users/lapchong/.stm32cubemx/materials_model_output
 
 Exec/report summary (generate)
 -----------------------------------------------------------------------------------------------------------------------------
@@ -11,8 +11,8 @@ compression        :   none
 options            :   allocate-inputs, allocate-outputs                                                                     
 optimization       :   balanced                                                                                              
 target/series      :   stm32h7                                                                                               
-workspace dir      :   C:\Users\lapchong\AppData\Local\Temp\mxAI_workspace4421807745751003527379485153487950                 
-output dir         :   C:\Users\lapchong\.stm32cubemx\network_output                                                         
+workspace dir      :   C:\Users\lapchong\AppData\Local\Temp\mxAI_workspace19210114195680015036354929926164634                
+output dir         :   C:\Users\lapchong\.stm32cubemx\materials_model_output                                                 
 model_fmt          :   float                                                                                                 
 model_name         :   v7_v3_48_conv2d_model                                                                                 
 model_hash         :   0xd32e308e601e685731222f0082ea732d                                                                    
@@ -308,11 +308,11 @@ macc=1,488,048 weights=111,760 act=42,468 ram_io=0
 
 
 Generated files (7)
------------------------------------------------------------------------------ 
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data_params.h   
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data_params.c   
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data.h          
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model_data.c          
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model_config.h        
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model.h               
-C:\Users\lapchong\.stm32cubemx\network_output\materials_model.c               
+------------------------------------------------------------------------------------- 
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model_data_params.h   
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model_data_params.c   
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model_data.h          
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model_data.c          
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model_config.h        
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model.h               
+C:\Users\lapchong\.stm32cubemx\materials_model_output\materials_model.c               
