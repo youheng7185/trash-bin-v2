@@ -31,3 +31,22 @@ void set_servo_speed(uint16_t pwm_value) {
     HAL_Delay(20); // Let the servo register a small change
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, pwm_value); // Set final speed
 }
+
+// 360 deg motor to rotate to compartment
+void rotate_to_compartment(int n)
+{
+	int target_angle = 30 + (n - 1) * 90;
+	int half_angle = target_angle / 2;
+
+	uint32_t pulse = 50 + ((250 - 50) * half_angle) / 180;
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, pulse);
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, pulse);
+}
+
+// 180 deg motor to drop rubbish
+void yeet(void)
+{
+	set_servo_angle(120);
+	HAL_Delay(700);
+	set_servo_angle(0);
+}
