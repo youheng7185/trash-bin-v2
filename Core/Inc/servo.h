@@ -9,5 +9,7 @@
 void servo360_init(void);
 void set_servo_angle(uint8_t angle);
 void set_servo_speed(uint16_t pwm_value);
+void rotate_to_compartment(int n);
+void yeet(void);
 
 #endif //SERVO_H
